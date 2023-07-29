@@ -9,6 +9,234 @@ auditlog:
 jenkins:
   renderHelmLabels: true
   controller:
+    JCasC:
+      defaultConfig: false
+      configScripts:
+        all: |
+          jenkins:
+            agentProtocols:
+              - "JNLP4-connect"
+              - "Ping"
+            authorizationStrategy:
+              loggedInUsersCanDoAnything:
+                allowAnonymousRead: false
+            clouds:
+              - kubernetes:
+                  containerCap: 10
+                  containerCapStr: "10"
+                  jenkinsUrl: "http://jenkins.jenkins.svc:8080"
+                  name: "cloud"
+                  namespace: "jenkins"
+                  serverUrl: "https://dh-master-1p:8443"
+                  skipTlsVerify: true
+                  webSocket: true
+              - kubernetes:
+                  containerCap: 10
+                  containerCapStr: "10"
+                  jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"
+                  jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+                  name: "kubernetes"
+                  namespace: "jenkins"
+                  podLabels:
+                    - key: "jenkins/jenkins-jenkins-agent"
+                      value: "true"
+                  serverUrl: "https://kubernetes.default"
+                  templates:
+                    - containers:
+                        - args: "^${computer.jnlpmac} ^${computer.name}"
+                          envVars:
+                            - envVar:
+                                key: "JENKINS_URL"
+                                value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+                          image: "jenkins/inbound-agent:3107.v665000b_51092-15"
+                          name: "jnlp"
+                          resourceLimitCpu: "512m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "512m"
+                          resourceRequestMemory: "512Mi"
+                          workingDir: "/home/jenkins/agent"
+                      id: "f63f51f5597a472a0219f86d684dbb0c34dcf80c9ef24fd3efec4e4a8bd21bc6"
+                      label: "jenkins-jenkins-agent"
+                      name: "default"
+                      namespace: "jenkins"
+                      nodeUsageMode: "NORMAL"
+                      podRetention: "never"
+                      serviceAccount: "default"
+                      slaveConnectTimeout: 100
+                      slaveConnectTimeoutStr: "100"
+                      yamlMergeStrategy: "override"
+            crumbIssuer:
+              standard:
+                excludeClientIPFromCrumb: true
+            disableRememberMe: false
+            labelAtoms:
+              - name: "built-in"
+              - name: "jenkins-jenkins-agent"
+            markupFormatter: "plainText"
+            mode: NORMAL
+            myViewsTabBar: "standard"
+            numExecutors: 0
+            primaryView:
+              all:
+                name: "all"
+            projectNamingStrategy: "standard"
+            quietPeriod: 5
+            remotingSecurity:
+              enabled: true
+            scmCheckoutRetryCount: 0
+            securityRealm:
+              local:
+                allowsSignup: false
+                enableCaptcha: false
+                users:
+                  - id: "admin"
+                    name: "Jenkins Admin"
+                    properties:
+                      - "apiToken"
+                      - "mailer"
+                      - "myView"
+                      - preferredProvider:
+                          providerId: "default"
+                      - "theme"
+                      - "timezone"
+                      - "experimentalFlags"
+            slaveAgentPort: 50000
+            updateCenter:
+              sites:
+                - id: "default"
+                  url: "https://updates.jenkins.io/update-center.json"
+            views:
+              - all:
+                  name: "all"
+            viewsTabBar: "standard"
+          globalCredentialsConfiguration:
+            configuration:
+              providerFilter: "none"
+              typeFilter: "none"
+          security:
+            apiToken:
+              creationOfLegacyTokenEnabled: false
+              tokenGenerationOnCreationEnabled: false
+              usageStatisticsEnabled: true
+            envInject:
+              enableLoadingFromMaster: false
+              enablePermissions: false
+              hideInjectedVars: false
+            gitHooks:
+              allowedOnAgents: false
+              allowedOnController: false
+            gitHostKeyVerificationConfiguration:
+              sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+            globalJobDslSecurityConfiguration:
+              useScriptSecurity: true
+            kerberosSso:
+              accountName: "Service account"
+              allowBasic: true
+              allowDelegation: false
+              allowLocalhost: true
+              allowUnsecureBasic: true
+              anonymousAccess: false
+              enabled: false
+              krb5Location: "/etc/krb5.conf"
+              loginClientModule: "spnego-client"
+              loginLocation: "/etc/login.conf"
+              loginServerModule: "spnego-server"
+              promptNtlm: false
+              redirectEnabled: false
+            sSHD:
+              port: -1
+          unclassified:
+            audit-trail:
+              logBuildCause: true
+              logCredentialsUsage: true
+              pattern: ".*/(?:configSubmit|doDelete|postBuildResult|enable|disable|cancelQueue|stop|toggleLogKeep|doWipeOutWorkspace|createItem|createView|toggleOffline|cancelQuietDown|quietDown|restart|exit|safeExit)/?.*"
+            buildDiscarders:
+              configuredBuildDiscarders:
+                - "jobBuildDiscarder"
+            buildUserVars:
+              allBuilds: false
+            email-ext:
+              adminRequiredForTemplateTesting: false
+              allowUnregisteredEnabled: false
+              charset: "UTF-8"
+              debugMode: false
+              defaultBody: |-
+                $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+          
+                Check console output at $BUILD_URL to view the results.
+              defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+              defaultTriggerIds:
+                - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+              maxAttachmentSize: -1
+              maxAttachmentSizeMb: -1
+              precedenceBulk: false
+              watchingEnabled: false
+            fingerprints:
+              fingerprintCleanupDisabled: false
+              storage: "file"
+            gitHubConfiguration:
+              apiRateLimitChecker: ThrottleForNormalize
+            gitHubPluginConfig:
+              hookUrl: "http://kubernetes.docker.internal/github-webhook/"
+            junitTestResultStorage:
+              storage: "file"
+            location:
+              adminAddress: "address not configured yet <nobody@nowhere>"
+              url: "http://kubernetes.docker.internal/"
+            mailer:
+              charset: "UTF-8"
+              useSsl: false
+              useTls: false
+            pollSCM:
+              pollingThreadCount: 10
+            prometheusConfiguration:
+              appendParamLabel: false
+              appendStatusLabel: false
+              collectDiskUsage: true
+              collectNodeStatus: true
+              collectingMetricsPeriodInSeconds: 120
+              countAbortedBuilds: true
+              countFailedBuilds: true
+              countNotBuiltBuilds: true
+              countSuccessfulBuilds: true
+              countUnstableBuilds: true
+              defaultNamespace: "default"
+              fetchTestResults: true
+              jobAttributeName: "jenkins_job"
+              path: "prometheus"
+              perBuildMetrics: false
+              processingDisabledBuilds: false
+              useAuthenticatedEndpoint: false
+            scmGit:
+              addGitTagAction: false
+              allowSecondFetch: false
+              createAccountBasedOnEmail: false
+              disableGitToolChooser: false
+              hideCredentials: false
+              showEntireCommitSummaryInChanges: false
+              useExistingAccountWithSameEmail: false
+            separator:
+              globalSectionHeaderStyle: "font-weight: bold;"
+            subversionSCM:
+              workspaceFormat: 8
+            themeManager:
+              disableUserThemes: false
+            timestamper:
+              allPipelines: false
+              elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+              systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+            whitelist:
+              enabled: false
+          tool:
+            git:
+              installations:
+                - home: "git"
+                  name: "Default"
+            mavenGlobalConfig:
+              globalSettingsProvider: "standard"
+              settingsProvider: "standard"
+          
+
     componentName: "jenkins-controller"
     image: jenkins/jenkins
     tag: 2.415-jdk11
@@ -25,59 +253,59 @@ jenkins:
         value: "true"
 
     installPlugins:
-      - kubernetes-client-api:6.4.1-215.v2ed17097a_8e9
-      - subversion:2.17.2
-      - audit-trail:333.vb_e1b_b_0f1238c
-      - github-branch-source:1728.v859147241f49
-      - prometheus:2.2.3
-      - cloudbees-disk-usage-simple:182.v62ca_0c992a_f3
-      - kubernetes-credentials:0.10.0
-      - kubernetes:3937.vd7b_82db_e347b_
-      - branch-api:2.1122.v09cb_8ea_8a_724
-      - javax-mail-api:1.6.2-9
-      - configuration-as-code:1647.ve39ca_b_829b_42
-      - credentials:1268.v3f0d043d60e9
-      - instance-identity:142.v04572ca_5b_265
-      - bouncycastle-api:2.28
-      - script-security:1251.vfe552ed55f8d
-      - command-launcher:100.v2f6722292ee8
       - active-directory:2.30
+      - audit-trail:333.vb_e1b_b_0f1238c
       - authentication-tokens:1.53.v1c90fd9191a_b_
-      - scm-api:672.v64378a_b_20c60
+      - bouncycastle-api:2.28
       - branch-api:2.1105.v472604208c55
+      - branch-api:2.1122.v09cb_8ea_8a_724
+      - build-user-vars-plugin
       - checks-api:2.0.0
-      - plain-credentials:143.v1b_df8b_d3b_e48
-      - token-macro:359.vb_cde11682e0c
+      - cloudbees-disk-usage-simple:182.v62ca_0c992a_f3
+      - command-launcher:100.v2f6722292ee8
       - config-file-provider:938.ve2b_8a_591c596
       - configuration-as-code-groovy:1.1
+      - configuration-as-code:1647.ve39ca_b_829b_42
       - credentials-binding:604.vb_64480b_c56ca_
-      - jackson2-api:2.15.1-344.v6eb_55303dc3e
-      - pipeline-model-extensions
+      - credentials:1268.v3f0d043d60e9
       - docker-commons:419.v8e3cd84ef49c
-      - jsch:0.2.8-65.v052c39de79b_2
-      - git-client:4.3.0
-      - git-server:99.va_0826a_b_cdfa_d
       - echarts-api:5.4.0-5
-      - junit:1207.va_09d5100410f
-      - matrix-project:789.v57a_725b_63c79
-      - matrix-auth:3.1.10
       - email-ext:2.97
       - envinject:2.901.v0038b_6471582
       - generic-webhook-trigger:1.86.3
-      - git:5.0.2
+      - git-client:4.3.0
       - git-parameter:0.9.18
+      - git-server:99.va_0826a_b_cdfa_d
+      - git:5.0.2
       - github-api:1.314-431.v78d72a_3fe4c3
+      - github-branch-source:1728.v859147241f49
       - github:1.37.1
-      - job-dsl
-      - kafkalogs:0.1.8
-      - metrics:4.2.18-438.v0ede325a_4c68
-      - lockable-resources:1156.v5e9f897ece02
-      - timestamper:1.25
-      - theme-manager:193.vcef22f6c5f2b_
       - hidden-parameter:138.v2a_c30d04e566
-      - build-user-vars-plugin
-      - parameter-separator
+      - instance-identity:142.v04572ca_5b_265
+      - jackson2-api:2.15.1-344.v6eb_55303dc3e
+      - javax-mail-api:1.6.2-9
+      - job-dsl
+      - jsch:0.2.8-65.v052c39de79b_2
+      - junit:1207.va_09d5100410f
+      - kafkalogs:0.1.8
       - kerberos-sso:1.11
+      - kubernetes-client-api:6.4.1-215.v2ed17097a_8e9
+      - kubernetes-credentials:0.10.0
+      - kubernetes:3937.vd7b_82db_e347b_
+      - lockable-resources:1156.v5e9f897ece02
+      - matrix-auth:3.1.10
+      - matrix-project:789.v57a_725b_63c79
+      - metrics:4.2.18-438.v0ede325a_4c68
+      - parameter-separator
+      - pipeline-model-extensions
+      - plain-credentials:143.v1b_df8b_d3b_e48
+      - prometheus:2.2.3
+      - scm-api:672.v64378a_b_20c60
+      - script-security:1251.vfe552ed55f8d
+      - subversion:2.17.2
+      - theme-manager:193.vcef22f6c5f2b_
+      - timestamper:1.25
+      - token-macro:359.vb_cde11682e0c
       - uno-choice:2.6.5
 
     jenkinsHome: "/var/jenkins_home"
