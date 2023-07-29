@@ -9,8 +9,10 @@ auditlog:
 jenkins:
 
   kubernetesURL: https://kubernetes.docker.internal
+  agent:
+    enabled: true
+    jenkinsUrl: http://jenkins.jenkins.svc:8080
 
-  renderHelmLabels: true
   controller:
     JCasC:
       defaultConfig: true
@@ -27,10 +29,6 @@ jenkins:
 
     adminUser: "admin"
     adminPassword: "admin"
-    admin:
-      existingSecret: ""
-      userKey: jenkins-admin-user
-      passwordKey: jenkins-admin-password
 
     containerEnv:
       - name: COLLECT_DISK_USAGE
@@ -96,42 +94,17 @@ jenkins:
     jenkinsRef: "/usr/share/jenkins/ref"
     jenkinsWar: "/usr/share/jenkins/jenkins.war"
 
-
-    resources:
-      requests:
-        cpu: "50m"
-        memory: "256Mi"
-      limits:
-        cpu: "2000m"
-        memory: "4096Mi"
-
-    javaOpts: "-Xms512m -Xmx512m -Dhudson.model.DownloadService.noSignatureCheck=true"
-    usePodSecurityContext: true
-
-    runAsUser: 1000
-    fsGroup: 1000
-
     ingress:
       enabled: true
       ingressClassName: nginx
       path: /
       hostName: kubernetes.docker.internal
 
-  agent:
-    enabled: true
-    jenkinsUrl: http://jenkins.jenkins.svc:8080
-
   persistence:
     enabled: true
     accessMode: "ReadWriteOnce"
     size: "10Gi"
 
-  rbac:
-    create: true
-    readSecrets: false
-
-  serviceAccount:
-    create: true
 
   backup:
     enabled: false
