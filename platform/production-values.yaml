@@ -11,7 +11,7 @@ global:
     project: default
     namespace: argocd
     syncPolicy:
-      selfHeal: false
+      selfHeal: true
 
 jenkins:
   enable: true
