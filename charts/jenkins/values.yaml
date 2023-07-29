@@ -329,6 +329,8 @@ jenkins:
 
     ingress:
       enabled: true
+      ingressClassName: nginx
+      path: /
       hostName: kubernetes.docker.internal
 
   agent:
