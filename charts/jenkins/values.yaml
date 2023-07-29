@@ -8,14 +8,13 @@ auditlog:
 
 jenkins:
 
-  cloudName: MyCloud
   kubernetesURL: https://kubernetes.docker.internal
-  jenkinsUrl: http://jenkins.jenkins.svc:8080
 
   renderHelmLabels: true
   controller:
     JCasC:
       defaultConfig: true
+    cloudName: MyCloud
 
     componentName: "jenkins-controller"
     image: jenkins/jenkins
@@ -120,6 +119,7 @@ jenkins:
 
   agent:
     enabled: true
+    jenkinsUrl: http://jenkins.jenkins.svc:8080
 
   persistence:
     enabled: true
