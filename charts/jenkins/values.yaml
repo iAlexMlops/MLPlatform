@@ -241,6 +241,11 @@ jenkins:
     image: jenkins/jenkins
     tag: 2.415-jdk11
 
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        partition: 0
+
     adminUser: "admin"
     adminPassword: "admin"
     admin:
