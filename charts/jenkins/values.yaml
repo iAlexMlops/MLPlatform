@@ -11,6 +11,7 @@ jenkins:
   kubernetesURL: https://kubernetes.docker.internal
   agent:
     enabled: true
+    websocket: true
     jenkinsUrl: http://jenkins.jenkins.svc:8080
 
   controller:
