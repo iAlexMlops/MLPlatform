@@ -18,6 +18,20 @@ jenkins:
   controller:
     JCasC:
       defaultConfig: true
+
+      securityRealm: |-
+        local:
+          allowsSignup: false
+          enableCaptcha: false
+          users:
+          - id: "${chart-admin-username}"
+            name: "Jenkins Admin"
+            password: "${chart-admin-password}"
+
+      authorizationStrategy: |-
+        loggedInUsersCanDoAnything:
+          allowAnonymousRead: false
+
     cloudName: MyCloud
 
     componentName: "jenkins-controller"
