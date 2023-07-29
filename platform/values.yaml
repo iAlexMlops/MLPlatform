@@ -1,0 +1,23 @@
+spec:
+  source:
+    repoURL: https://github.com/iAlexMlops/local-kubernetes-charts.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+
+global:
+  argo:
+    apiVersion: argoproj.io/v1alpha1
+    project: default
+    namespace: argocd
+    syncPolicy:
+      selfHeal: false
+
+jenkins:
+  enable: true
+  valueFile: jenkins/values.yaml
+  argoApplication:
+    name: jenkins
+    namespace: jenkins
+    chart: charts/jenkins
+  config:
