@@ -12,6 +12,7 @@ jenkins:
   agent:
     enabled: true
     websocket: true
+    disableDefaultAgent: true
     jenkinsUrl: http://jenkins.jenkins.svc:8080
 
   controller:
