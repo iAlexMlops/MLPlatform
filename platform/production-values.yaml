@@ -21,3 +21,12 @@ jenkins:
     namespace: jenkins
     chart: charts/jenkins
   config:
+
+ingressNginx:
+  enable: true
+  valueFile: values.yaml
+  argoApplication:
+    name: ingress-nginx
+    namespace: ingress-nginx
+    chart: charts/ingress-nginx
+  config:
