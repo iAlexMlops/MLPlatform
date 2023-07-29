@@ -1,0 +1,124 @@
+auditlog:
+  enabled: true
+  persistenceEnabled: true
+  mountpoint: /var/jenkins_auditlog
+  accessMode: "ReadWriteOnce"
+  size: "5Gi"
+
+
+jenkins:
+  renderHelmLabels: true
+  controller:
+    componentName: "jenkins-controller"
+    image: jenkins/jenkins
+    tag: 2.415-jdk11
+
+    adminUser: "admin"
+    adminPassword: "admin"
+    admin:
+      existingSecret: ""
+      userKey: jenkins-admin-user
+      passwordKey: jenkins-admin-password
+
+    containerEnv:
+      - name: COLLECT_DISK_USAGE
+        value: "true"
+
+    installPlugins:
+      - kubernetes-client-api:6.4.1-215.v2ed17097a_8e9
+      - subversion:2.17.2
+      - audit-trail:333.vb_e1b_b_0f1238c
+      - github-branch-source:1728.v859147241f49
+      - prometheus:2.2.3
+      - cloudbees-disk-usage-simple:182.v62ca_0c992a_f3
+      - kubernetes-credentials:0.10.0
+      - kubernetes:3937.vd7b_82db_e347b_
+      - branch-api:2.1122.v09cb_8ea_8a_724
+      - javax-mail-api:1.6.2-9
+      - configuration-as-code:1647.ve39ca_b_829b_42
+      - credentials:1268.v3f0d043d60e9
+      - instance-identity:142.v04572ca_5b_265
+      - bouncycastle-api:2.28
+      - script-security:1251.vfe552ed55f8d
+      - command-launcher:100.v2f6722292ee8
+      - active-directory:2.30
+      - authentication-tokens:1.53.v1c90fd9191a_b_
+      - scm-api:672.v64378a_b_20c60
+      - branch-api:2.1105.v472604208c55
+      - checks-api:2.0.0
+      - plain-credentials:143.v1b_df8b_d3b_e48
+      - token-macro:359.vb_cde11682e0c
+      - config-file-provider:938.ve2b_8a_591c596
+      - configuration-as-code-groovy:1.1
+      - credentials-binding:604.vb_64480b_c56ca_
+      - jackson2-api:2.15.1-344.v6eb_55303dc3e
+      - pipeline-model-extensions
+      - docker-commons:419.v8e3cd84ef49c
+      - jsch:0.2.8-65.v052c39de79b_2
+      - git-client:4.3.0
+      - git-server:99.va_0826a_b_cdfa_d
+      - echarts-api:5.4.0-5
+      - junit:1207.va_09d5100410f
+      - matrix-project:789.v57a_725b_63c79
+      - matrix-auth:3.1.10
+      - email-ext:2.97
+      - envinject:2.901.v0038b_6471582
+      - generic-webhook-trigger:1.86.3
+      - git:5.0.2
+      - git-parameter:0.9.18
+      - github-api:1.314-431.v78d72a_3fe4c3
+      - github:1.37.1
+      - job-dsl
+      - kafkalogs:0.1.8
+      - metrics:4.2.18-438.v0ede325a_4c68
+      - lockable-resources:1156.v5e9f897ece02
+      - timestamper:1.25
+      - theme-manager:193.vcef22f6c5f2b_
+      - hidden-parameter:138.v2a_c30d04e566
+      - build-user-vars-plugin
+      - parameter-separator
+      - kerberos-sso:1.11
+      - uno-choice:2.6.5
+
+    jenkinsHome: "/var/jenkins_home"
+    jenkinsRef: "/usr/share/jenkins/ref"
+    jenkinsWar: "/usr/share/jenkins/jenkins.war"
+
+
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "256Mi"
+      limits:
+        cpu: "2000m"
+        memory: "4096Mi"
+
+    javaOpts: "-Xms512m -Xmx512m -Dhudson.model.DownloadService.noSignatureCheck=true"
+    usePodSecurityContext: true
+
+    runAsUser: 1000
+    fsGroup: 1000
+
+    ingress:
+      enabled: true
+      hostName: kubernetes.docker.internal
+
+  agent:
+    enabled: true
+
+  persistence:
+    enabled: true
+    accessMode: "ReadWriteOnce"
+    size: "10Gi"
+
+  rbac:
+    create: true
+    readSecrets: false
+
+  serviceAccount:
+    create: true
+
+  backup:
+    enabled: false
+    componentName: "backup"
+    schedule: "0 2 * * *"
