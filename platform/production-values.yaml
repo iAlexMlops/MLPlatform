@@ -15,7 +15,7 @@ global:
 
 jenkins:
   enable: true
-  valueFile: jenkins/values.yaml
+  valueFile: values.yaml
   argoApplication:
     name: jenkins
     namespace: jenkins
