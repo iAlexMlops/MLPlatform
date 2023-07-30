@@ -114,7 +114,7 @@ jenkins:
       enabled: true
       ingressClassName: nginx
       path: /
-      hostName: kubernetes.docker.internal
+      hostName: argocd.alex.localhost
 
   persistence:
     enabled: true
