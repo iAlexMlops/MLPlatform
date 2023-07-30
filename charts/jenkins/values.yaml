@@ -113,7 +113,7 @@ jenkins:
     ingress:
       enabled: true
       ingressClassName: nginx
-      hostName: argocd.alex.localhost
+      hostName: jenkins.alex.localhost
 
   persistence:
     enabled: true
