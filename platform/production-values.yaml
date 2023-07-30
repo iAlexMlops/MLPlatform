@@ -6,6 +6,8 @@ spec:
     server: https://kubernetes.default.svc
 
 global:
+  environment: test
+  environmentValues: &environmentValues test.yaml
   argo:
     apiVersion: argoproj.io/v1alpha1
     project: default
@@ -13,20 +15,32 @@ global:
     syncPolicy:
       selfHeal: true
 
+
 jenkins:
   enable: true
-  valueFile: values.yaml
+  valueFile: *environmentValues
   argoApplication:
     name: jenkins
     namespace: jenkins
     chart: charts/jenkins
   config:
 
+
 ingressNginx:
   enable: true
-  valueFile: values.yaml
+  valueFile: *environmentValues
   argoApplication:
     name: ingress-nginx
     namespace: ingress-nginx
     chart: charts/ingress-nginx
+  config:
+
+
+airflow:
+  enable: true
+  valueFile: *environmentValues
+  argoApplication:
+    name: airflow
+    namespace: airflow
+    chart: charts/airflow
   config:

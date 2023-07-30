@@ -1,0 +1,184 @@
+configMap:
+  pip: |-
+    [global]
+    index-url = https://artapp.moscow.alfaintra.net/artifactory/api/pypi/pypi-remote/simple
+    trusted-host = artapp.moscow.alfaintra.net
+    extra-index-url = 
+      https://binary.alfabank.ru/artifactory/api/pypi/fs_etl-pypi/simple
+      https://binary.alfabank.ru/artifactory/api/pypi/fs_etl_test/simple
+  conda: |-
+    channel_alias: http://binary/artifactory/api/conda/conda
+    channels:
+      - http://binary/artifactory/api/conda/conda
+    default_channels:
+      - http://binary/artifactory/api/conda/conda
+    ssl_verify: false
+    report_errors: true
+
+
+sparkConf: {}
+
+
+airflow:
+  defaultAirflowRepository: apache/airflow
+  defaultAirflowTag: "2.3.3"
+  airflowVersion: "2.3.3"
+
+
+  images:
+    airflow:
+      repository: ~
+      tag: ~
+      pullPolicy: Always
+
+
+  ingress:
+    enabled: true
+    web:
+      enabled: true
+      pathType: "ImplementationSpecific"
+      host: "airflow.alex.localhost"
+      ingressClassName: nginx
+      hosts:
+        - name: "airflow.alex.localhost"
+          tls:
+            enabled: true
+            secretName: "airflow.alex.localhost"
+
+
+  executor: "KubernetesExecutor"
+
+
+  extraEnv: |
+    - name: AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE
+      value: 'Europe/Moscow'
+    - name: TZ
+      value: 'Europe/Moscow'
+    - name: FS_ETL_OMIT_VERSION
+      value: '1'
+    - name: HADOOP_CONF_DIR
+      value: '/opt/hadoop'
+
+
+  data:
+    metadataConnection:
+      user: postgres
+      pass: postgres
+      protocol: postgresql
+      host: ~
+      port: 5432
+      db: airflow
+      sslmode: disable
+
+
+  fernetKey: yIM8OJWonEo1vlrArEcpFdxHarUgKayRg1jA67EsOZY=
+  fernetKeySecretName: ~
+
+
+  webserverSecretKey: "771ef377903e3b3f9d78900d0a979ca1"
+  webserverSecretKeySecretName: ~
+
+  webserver:
+    defaultUser:
+      enabled: true
+
+      role: Admin
+      username: admin
+      password: admin
+
+      email: a.egorov@ktsstudio.ru
+      firstName: admin
+      lastName: user
+
+  kerberos:
+    enabled: false
+
+
+  workers:
+    replicas: 1
+    strategy:
+      rollingUpdate:
+        maxSurge: "100%"
+        maxUnavailable: "50%"
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClassName: hostpath
+      fixPermissions: false
+    #    extraVolumes:
+    #      - name: pip-conf
+    #        configMap:
+    #          name: pip-conf
+    #    extraVolumeMounts:
+    #      - name: pip-conf
+    #        mountPath: /etc/pip.conf
+    #        subPath: pip.conf
+    logGroomerSidecar:
+      command: ~
+      args: ["bash", "/clean-logs"]
+      retentionDays: 30
+
+
+  scheduler:
+    #    extraVolumes:
+    #      - name: pip-conf
+    #        configMap:
+    #          name: pip-conf
+    #    extraVolumeMounts:
+    #      - name: pip-conf
+    #        mountPath: /etc/pip.conf
+    #        subPath: pip.conf
+    logGroomerSidecar:
+      enabled: true
+      command: ~
+      args: ["bash", "/clean-logs"]
+      retentionDays: 30
+
+
+  createUserJob:
+    useHelmHooks: false
+
+
+  migrateDatabaseJob:
+    useHelmHooks: false
+
+
+  statsd:
+    enabled: false
+
+
+  redis:
+    enabled: true
+    persistence:
+      enabled: true
+      storageClassName: hostpath
+      size: 1Gi
+
+
+  postgresql:
+    enabled: true
+    postgresqlPassword: postgres
+    postgresqlUsername: postgres
+    postgresqlDatabase: airflow
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClassName: hostpath
+
+
+
+  dags:
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClassName: hostpath
+      accessMode: ReadWriteOnce
+      existingClaim:
+      subPath: ~
+
+
+  logs:
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClassName: hostpath

@@ -1,0 +1,35 @@
+{{- if .Values.airflow.enable -}}
+{{- with .Values.airflow -}}
+apiVersion: {{ $.Values.global.argo.apiVersion }}
+kind: Application
+metadata:
+  name: {{ .argoApplication.name }}
+  namespace: {{ $.Values.global.argo.namespace }}
+spec:
+  project: {{ $.Values.global.argo.project }}
+  source:
+    repoURL: {{ $.Values.spec.source.repoURL }}
+    targetRevision: {{ $.Values.spec.source.targetRevision }}
+    path: {{ .argoApplication.chart }}
+    helm:
+      valueFiles:
+        -  {{ $.Values.airflow.valueFile }}
+      parameters:
+      {{- with $.Values.airflow -}}
+      {{- if or .config }}
+      {{- range $key, $value := .config }}
+        - name: {{ $key | squote }}
+          value: {{ $value | squote }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
+  destination:
+    namespace: {{ $.Values.airflow.argoApplication.namespace }}
+    server: {{ $.Values.spec.destination.server }}
+  syncPolicy:
+    automated:
+      selfHeal: {{ $.Values.global.argo.syncPolicy.selfHeal }}
+    syncOptions:
+      - CreateNamespace=true
+{{- end -}}
+{{- end -}}
