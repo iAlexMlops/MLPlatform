@@ -1,3 +1,4 @@
+{{/*TODO: сделать один файлик по рейнджу*/}}
 {{- if .Values.airflow.enable -}}
 {{- with .Values.airflow -}}
 apiVersion: {{ $.Values.global.argo.apiVersion }}

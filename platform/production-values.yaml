@@ -6,8 +6,8 @@ spec:
     server: https://kubernetes.default.svc
 
 global:
-  environment: test
-  environmentValues: &environmentValues test.yaml
+  environment: production
+  environmentValues: &environmentValues production.yaml
   argo:
     apiVersion: argoproj.io/v1alpha1
     project: default

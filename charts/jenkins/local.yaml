@@ -65,7 +65,7 @@ jenkins:
       - configuration-as-code-groovy:1.1
       - configuration-as-code:1647.ve39ca_b_829b_42
       - credentials-binding:604.vb_64480b_c56ca_
-      - credentials:1268.v3f0d043d60e9
+      - credentials:1271.v54b_1c2c6388a_
       - docker-commons:419.v8e3cd84ef49c
       - echarts-api:5.4.0-5
       - email-ext:2.97
