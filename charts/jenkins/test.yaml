@@ -16,12 +16,12 @@ jenkins:
 
     additionalContainers:
       - sideContainerName: docker
-        image: moby/buildkit:master-rootless
+        image: moby/buildkit
+        tag: master-rootless
         ttyEnabled: true
         envVars:
-          docker:
-            name: BUILDKITD_FLAGS
-            value: --oci-worker-no-process-sandbox
+        - name: BUILDKITD_FLAGS
+          value: --oci-worker-no-process-sandbox
         command: "sleep"
         args: "9999999"
 
