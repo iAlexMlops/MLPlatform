@@ -15,16 +15,14 @@ jenkins:
     jenkinsUrl: http://jenkins.jenkins.svc:8080
 
     additionalContainers:
-      - sideContainerName: dind
+      - sideContainerName: docker
         image: moby/buildkit:master-rootless
-        tty: true
-        env:
-          - name: BUILDKITD_FLAGS
-            value: --oci-worker-no-process-sandbox
-        command:
-          - sleep
-        args:
-          - "9999999"
+        ttyEnabled: true
+        envVars:
+        - name: BUILDKITD_FLAGS
+          value: --oci-worker-no-process-sandbox
+        command: "sleep"
+        args: "9999999"
 
 
   controller:
