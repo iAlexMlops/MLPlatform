@@ -19,8 +19,9 @@ jenkins:
         image: moby/buildkit:master-rootless
         ttyEnabled: true
         envVars:
-        - name: BUILDKITD_FLAGS
-          value: --oci-worker-no-process-sandbox
+          docker:
+            name: BUILDKITD_FLAGS
+            value: --oci-worker-no-process-sandbox
         command: "sleep"
         args: "9999999"
 
