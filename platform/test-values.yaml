@@ -13,34 +13,44 @@ global:
     project: default
     namespace: argocd
     syncPolicy:
-      selfHeal: true
+      selfHeal: false
 
 
-jenkins:
-  enable: true
-  valueFile: *environmentValues
-  argoApplication:
-    name: jenkins
-    namespace: jenkins
-    chart: charts/jenkins
-  config:
+services:
+  jenkins:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: jenkins
+      namespace: jenkins
+      chart: charts/jenkins
+    config:
 
 
-ingressNginx:
-  enable: true
-  valueFile: *environmentValues
-  argoApplication:
-    name: ingress-nginx
-    namespace: ingress-nginx
-    chart: charts/ingress-nginx
-  config:
+  ingressNginx:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: ingress-nginx
+      namespace: ingress-nginx
+      chart: charts/ingress-nginx
+    config:
 
 
-airflow:
-  enable: true
-  valueFile: *environmentValues
-  argoApplication:
-    name: airflow
-    namespace: airflow
-    chart: charts/airflow
-  config:
+  airflow:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: airflow
+      namespace: airflow
+      chart: charts/airflow
+    config:
+
+  mlflow:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: mlflow
+      namespace: mlflow
+      chart: charts/mlflow
+    config:

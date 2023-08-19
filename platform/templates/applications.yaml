@@ -1,36 +1,37 @@
-{{/*TODO: сделать один файлик по рейнджу*/}}
-{{- if .Values.airflow.enable -}}
-{{- with .Values.airflow -}}
+{{- range $serviceName, $serviceConfig := .Values.services }}
+{{- if $serviceConfig.enable -}}
+---
+# Application for {{ $serviceName }}
 apiVersion: {{ $.Values.global.argo.apiVersion }}
 kind: Application
 metadata:
-  name: {{ .argoApplication.name }}
+  name: {{ $serviceConfig.argoApplication.name }}
   namespace: {{ $.Values.global.argo.namespace }}
 spec:
   project: {{ $.Values.global.argo.project }}
   source:
     repoURL: {{ $.Values.spec.source.repoURL }}
     targetRevision: {{ $.Values.spec.source.targetRevision }}
-    path: {{ .argoApplication.chart }}
+    path: {{ $serviceConfig.argoApplication.chart }}
     helm:
       valueFiles:
-        -  {{ $.Values.airflow.valueFile }}
+        -  {{ $serviceConfig.valueFile }}
       parameters:
-      {{- with $.Values.airflow -}}
-      {{- if or .config }}
-      {{- range $key, $value := .config }}
+{{- with $serviceConfig -}}
+{{- if or .config }}
+{{- range $key, $value := .config }}
         - name: {{ $key | squote }}
           value: {{ $value | squote }}
-      {{- end }}
-      {{- end }}
-      {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
   destination:
-    namespace: {{ $.Values.airflow.argoApplication.namespace }}
+    namespace: {{ $serviceConfig.argoApplication.namespace }}
     server: {{ $.Values.spec.destination.server }}
   syncPolicy:
     automated:
       selfHeal: {{ $.Values.global.argo.syncPolicy.selfHeal }}
     syncOptions:
       - CreateNamespace=true
-{{- end -}}
-{{- end -}}
+{{ end -}}
+{{ end -}}
