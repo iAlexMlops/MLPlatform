@@ -35,11 +35,6 @@ jenkins:
                         id: "github"
                         scope: GLOBAL
                         secret: "{AQAAABAAAAAwsmqOyi0TV19gAfrzsVYDOTStE+8flcna9AEMxqkx02osYIT70GKpObNO52EsDHCJe05IoqWa6p8JSLH3wMnFsg==}"
-                    - usernamePassword:
-                        id: "githubTocken"
-                        password: "{AQAAABAAAAAworUnXSA7V6dl+q+Nul2NQFLX+blImA7fy8p4U/uD5Bpt8Xw2OhF5Yl8aHHgZFl0O0NV0ChlwYbWzW/0qsjgv+A==}"
-                        scope: GLOBAL
-                        username: "iAlexMlops"
           jenkins:
             clouds:
               - kubernetes:
