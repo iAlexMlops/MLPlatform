@@ -25,7 +25,71 @@ jenkins:
 
   controller:
     JCasC:
-      defaultConfig: true
+      configScripts:
+        all: |
+          credentials:
+            system:
+              domainCredentials:
+                - credentials:
+                    - string:
+                        id: "github"
+                        scope: GLOBAL
+                        secret: "{AQAAABAAAAAwsmqOyi0TV19gAfrzsVYDOTStE+8flcna9AEMxqkx02osYIT70GKpObNO52EsDHCJe05IoqWa6p8JSLH3wMnFsg==}"
+                    - usernamePassword:
+                        id: "githubTocken"
+                        password: "{AQAAABAAAAAworUnXSA7V6dl+q+Nul2NQFLX+blImA7fy8p4U/uD5Bpt8Xw2OhF5Yl8aHHgZFl0O0NV0ChlwYbWzW/0qsjgv+A==}"
+                        scope: GLOBAL
+                        username: "iAlexMlops"
+          jenkins:
+            clouds:
+              - kubernetes:
+                  jenkinsUrl: "http://jenkins.jenkins.svc:8080"
+                  name: "Kubernetes"
+                  namespace: "jenkins"
+                  podLabels:
+                    - key: "jenkins/jenkins-agent"
+                      value: "true"
+                  serverUrl: "https://192.168.65.4:6443"
+                  webSocket: true
+                  templates:
+                    - containers:
+                        - name: "jnlp"
+                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          envVars:
+                            - envVar:
+                                key: "JENKINS_URL"
+                                value: "http://jenkins.jenkins.svc:8080"
+                          image: "jenkins/inbound-agent:3107.v665000b_51092-15"
+                          resourceLimitCpu: "512m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "512m"
+                          resourceRequestMemory: "512Mi"
+                          workingDir: "/home/jenkins/agent"
+                        - name: "docker"
+                          args: "9999999"
+                          command: "sleep"
+                          image: "moby/buildkit:master-rootless"
+                          workingDir: "/home/jenkins/agent"
+                      label: "jenkins-agent"
+                      name: "jenkins-k8s-agent"
+                      namespace: "jenkins"
+                      serviceAccount: "default"
+            securityRealm:
+              local:
+                users:
+                  - id: "admin"
+                    name: "Jenkins Admin"
+                    properties:
+                      - "apiToken"
+                      - "mailer"
+                      - "myView"
+                      - preferredProvider:
+                          providerId: "default"
+                      - "theme"
+                      - "timezone"
+                      - "experimentalFlags"
+
+      defaultConfig: false
       securityRealm: |-
         local:
           allowsSignup: false
