@@ -19,9 +19,6 @@ jenkins:
         image: moby/buildkit
         tag: master-rootless
         ttyEnabled: true
-        envVars:
-        - name: BUILDKITD_FLAGS
-          value: --oci-worker-no-process-sandbox
         command: "sleep"
         args: "9999999"
 
@@ -42,11 +39,11 @@ jenkins:
         loggedInUsersCanDoAnything:
           allowAnonymousRead: false
 
-    cloudName: MyCloud
+    cloudName: Kubernetes
 
     componentName: "jenkins-controller"
     image: jenkins/jenkins
-    tag: 2.415-jdk11
+    tag: 2.419-jdk11
 
     updateStrategy:
       type: RollingUpdate
