@@ -41,8 +41,7 @@ jenkins:
                       password: "{AQAAABAAAAAg3vZ24zOWH9NdvgNLFRES6bv4oxv0hT6QLirPI4UreXv7m4L++PC8F0B9aolOKFXT}"
                       scope: GLOBAL
                       username: "jenkins"
-                domain:
-                  name: "alfaintra.net"
+
           jenkins:
             clouds:
               - kubernetes:
