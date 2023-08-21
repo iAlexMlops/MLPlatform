@@ -1,28 +1,6 @@
-configMap:
-  pip: |-
-    [global]
-    index-url = https://artapp.moscow.alfaintra.net/artifactory/api/pypi/pypi-remote/simple
-    trusted-host = artapp.moscow.alfaintra.net
-    extra-index-url = 
-      https://binary.alfabank.ru/artifactory/api/pypi/fs_etl-pypi/simple
-      https://binary.alfabank.ru/artifactory/api/pypi/fs_etl_test/simple
-  conda: |-
-    channel_alias: http://binary/artifactory/api/conda/conda
-    channels:
-      - http://binary/artifactory/api/conda/conda
-    default_channels:
-      - http://binary/artifactory/api/conda/conda
-    ssl_verify: false
-    report_errors: true
-
-
-sparkConf: {}
-
-
 airflow:
   defaultAirflowRepository: apache/airflow
-  defaultAirflowTag: "2.3.3"
-  airflowVersion: "2.3.3"
+  airflowVersion: "2.7.0"
 
 
   images:
@@ -105,14 +83,6 @@ airflow:
       size: 1Gi
       storageClassName: hostpath
       fixPermissions: false
-    #    extraVolumes:
-    #      - name: pip-conf
-    #        configMap:
-    #          name: pip-conf
-    #    extraVolumeMounts:
-    #      - name: pip-conf
-    #        mountPath: /etc/pip.conf
-    #        subPath: pip.conf
     logGroomerSidecar:
       command: ~
       args: ["bash", "/clean-logs"]
@@ -120,14 +90,6 @@ airflow:
 
 
   scheduler:
-    #    extraVolumes:
-    #      - name: pip-conf
-    #        configMap:
-    #          name: pip-conf
-    #    extraVolumeMounts:
-    #      - name: pip-conf
-    #        mountPath: /etc/pip.conf
-    #        subPath: pip.conf
     logGroomerSidecar:
       enabled: true
       command: ~
