@@ -31,17 +31,10 @@ jenkins:
             system:
               domainCredentials:
                 - credentials:
-                  - string:
-                      id: "github"
-                      scope: GLOBAL
-                      secret: "{AQAAABAAAAAwsmqOyi0TV19gAfrzsVYDOTStE+8flcna9AEMxqkx02osYIT70GKpObNO52EsDHCJe05IoqWa6p8JSLH3wMnFsg==}"
-                  - usernamePassword:
-                      description: "Учетная запись для авторизации в AD системного пользователя"
-                      id: "1780ccf6-c753-45f2-bf9b-28f673102f62"
-                      password: "{AQAAABAAAAAg3vZ24zOWH9NdvgNLFRES6bv4oxv0hT6QLirPI4UreXv7m4L++PC8F0B9aolOKFXT}"
-                      scope: GLOBAL
-                      username: "jenkins"
-
+                    - string:
+                        id: "github"
+                        scope: GLOBAL
+                        secret: "{AQAAABAAAAAwsmqOyi0TV19gAfrzsVYDOTStE+8flcna9AEMxqkx02osYIT70GKpObNO52EsDHCJe05IoqWa6p8JSLH3wMnFsg==}"
           jenkins:
             clouds:
               - kubernetes:
@@ -77,19 +70,19 @@ jenkins:
                       namespace: "jenkins"
                       serviceAccount: "default"
             securityRealm:
-              activeDirectory:
-                customDomain: true
-                domains:
-                  - bindName: "CN=riskmodeling_servers,OU=Особый Отдел,OU=Центральный Офис,DC=moscow,DC=alfaintra,DC=net"
-                    bindPassword: "{AQAAABAAAAAQ79uILusH6Tm3dLD3H9Qie8yOCqNuUInQtJ/R7N6dGy8=}"
-                    name: "alfaintra.net"
-                    servers: "moscowdc6.moscow.alfaintra.net:3269"
-                    site: "Central-Office"
-                    tlsConfiguration: TRUST_ALL_CERTIFICATES
-                groupLookupStrategy: RECURSIVE
-                removeIrrelevantGroups: false
-                requireTLS: true
-                startTls: true
+              local:
+                users:
+                  - id: "admin"
+                    name: "Jenkins Admin"
+                    properties:
+                      - "apiToken"
+                      - "mailer"
+                      - "myView"
+                      - preferredProvider:
+                          providerId: "default"
+                      - "theme"
+                      - "timezone"
+                      - "experimentalFlags"
 
       defaultConfig: false
       securityRealm: |-
