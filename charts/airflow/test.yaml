@@ -48,14 +48,6 @@ airflow:
       db: airflow
       sslmode: disable
 
-
-  fernetKey: yIM8OJWonEo1vlrArEcpFdxHarUgKayRg1jA67EsOZY=
-  fernetKeySecretName: ~
-
-
-  webserverSecretKey: "771ef377903e3b3f9d78900d0a979ca1"
-  webserverSecretKeySecretName: ~
-
   webserver:
     defaultUser:
       enabled: true
