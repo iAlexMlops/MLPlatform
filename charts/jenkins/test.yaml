@@ -233,6 +233,7 @@ jenkins:
       - bitbucket
       - handy-uri-templates-2-api
       - cloudbees-bitbucket-branch-source
+      - xml-job-to-job-dsl
 
 
 
