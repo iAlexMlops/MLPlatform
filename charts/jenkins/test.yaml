@@ -35,7 +35,6 @@ jenkins:
                       id: "github"
                       scope: GLOBAL
                       secret: "{AQAAABAAAAAwsmqOyi0TV19gAfrzsVYDOTStE+8flcna9AEMxqkx02osYIT70GKpObNO52EsDHCJe05IoqWa6p8JSLH3wMnFsg==}"
-                - credentials:
                   - usernamePassword:
                       description: "Учетная запись для авторизации в AD системного пользователя"
                       id: "1780ccf6-c753-45f2-bf9b-28f673102f62"
