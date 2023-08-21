@@ -77,19 +77,6 @@ jenkins:
                       namespace: "jenkins"
                       serviceAccount: "default"
             securityRealm:
-              local:
-                users:
-                  - id: "admin"
-                    name: "Jenkins Admin"
-                    properties:
-                      - "apiToken"
-                      - "mailer"
-                      - "myView"
-                      - preferredProvider:
-                          providerId: "default"
-                      - "theme"
-                      - "timezone"
-                      - "experimentalFlags"
               activeDirectory:
                 customDomain: true
                 domains:
