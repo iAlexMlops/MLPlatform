@@ -119,8 +119,9 @@ airflow:
 
   postgresql:
     enabled: true
-    postgresqlPassword: postgres
-    postgresqlUsername: postgres
+    auth:
+      username: postgres
+      password: postgres
     postgresqlDatabase: airflow
     persistence:
       enabled: true
