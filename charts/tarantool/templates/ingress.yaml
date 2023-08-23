@@ -4,9 +4,6 @@ metadata:
   name: tarantool-app-cartridge
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - {{ .Values.ingressHostname }}
   rules:
     - host: {{ .Values.ingressHostname }}
       http:
@@ -14,6 +11,6 @@ spec:
           - pathType: ImplementationSpecific
             backend:
               service:
-                name: tarantool-app-cartridge-role-router
+                name: tarantool-cartridge-role-router
                 port:
-                  number: {{ .Values.ingressPort }}
+                  number: 8081
