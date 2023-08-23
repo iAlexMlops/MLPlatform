@@ -1,0 +1,9 @@
+dependencies:
+- name: tarantool-operator
+  repository: https://tarantool.github.io/helm-charts/
+  version: 1.0.1
+- name: cartridge
+  repository: https://tarantool.github.io/helm-charts/
+  version: 1.0.1
+digest: sha256:c06cef17cfc700135fd6d3af70af2a01aef6ab95b07e23a17c6d47491227322d
+generated: "2023-07-27T12:28:53.282795+03:00"

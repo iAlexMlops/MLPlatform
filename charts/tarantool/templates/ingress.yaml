@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tarantool-app-cartridge
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.ingressHostname }}
+  rules:
+    - host: {{ .Values.ingressHostname }}
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tarantool-app-cartridge-role-router
+                port:
+                  number: {{ .Values.ingressPort }}

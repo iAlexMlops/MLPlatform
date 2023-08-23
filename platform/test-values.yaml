@@ -54,3 +54,12 @@ services:
       namespace: mlflow
       chart: charts/mlflow
     config:
+
+  tarantool:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: tarantool
+      namespace: tarantool
+      chart: charts/tarantool
+    config:

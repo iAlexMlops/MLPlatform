@@ -1,0 +1,95 @@
+ingressHostname: tarantool.alex.localhost
+ingressPort: &ingressPort 8081
+tarantoolPort: &tarantoolPort 3301
+
+
+tarantool-operator:
+  image:
+    repository: tarantool/tarantool-operator
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicas: 1
+
+
+cartridge:
+  tarantool:
+    image:
+      repository: tarantool/examples-kv
+      tag: 1.0.0
+      pullPolicy: IfNotPresent
+
+
+    runDir: /var/run/tarantool
+    workDir: /var/lib/tarantool
+
+    config:
+      spaces:
+        customer:
+          engine: memtx
+          is_local: false
+          temporary: false
+          sharding_key: [customer_id]
+          format:
+            - {name: customer_id, type: unsigned, is_nullable: false}
+            - {name: bucket_id, type: unsigned, is_nullable: false}
+            - {name: fullname, type: string, is_nullable: false}
+          indexes:
+          - name: customer_id
+            unique: true
+            type: TREE
+            parts:
+              - {path: customer_id, type: unsigned, is_nullable: false}
+
+          - name: bucket_id
+            unique: false
+            type: TREE
+            parts:
+              - {path: bucket_id, type: unsigned, is_nullable: false}
+
+          - name: fullname
+            unique: true
+            type: TREE
+            parts:
+              - {path: fullname, type: string, is_nullable: false}
+
+
+    auth:
+      user: "admin"
+      password: "admin"
+
+
+    roles:
+      - name: storage
+        replicasets: 2
+        replicas: 2
+        vshard:
+          weight: 100
+          roles:
+            - app.roles.storage
+        persistence:
+          enabled: true
+          spec:
+            resources:
+              requests:
+                storage: 2Gi
+
+
+      - name: router
+        replicasets: 2
+        replicas: 1
+        service:
+          type: ClusterIP
+          ports:
+            http: *ingressPort
+            tarantool: *tarantoolPort
+        vshard:
+          allRw: true
+          weight: 1
+          roles:
+            - app.roles.router
+        persistence:
+          enabled: true
+          spec:
+            resources:
+              requests:
+                storage: 1Gi
