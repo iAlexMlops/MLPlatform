@@ -18,7 +18,7 @@ global:
 
 services:
   jenkins:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: jenkins
@@ -38,7 +38,7 @@ services:
 
 
   airflow:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: airflow
@@ -47,7 +47,7 @@ services:
     config:
 
   mlflow:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: mlflow
