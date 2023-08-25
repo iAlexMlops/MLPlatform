@@ -22,37 +22,6 @@ cartridge:
     runDir: /var/run/tarantool
     workDir: /var/lib/tarantool
 
-    config:
-      spaces:
-        customer:
-          engine: memtx
-          is_local: false
-          temporary: false
-          sharding_key: [customer_id]
-          format:
-            - {name: customer_id, type: unsigned, is_nullable: false}
-            - {name: bucket_id, type: unsigned, is_nullable: false}
-            - {name: fullname, type: string, is_nullable: false}
-          indexes:
-          - name: customer_id
-            unique: true
-            type: TREE
-            parts:
-              - {path: customer_id, type: unsigned, is_nullable: false}
-
-          - name: bucket_id
-            unique: false
-            type: TREE
-            parts:
-              - {path: bucket_id, type: unsigned, is_nullable: false}
-
-          - name: fullname
-            unique: true
-            type: TREE
-            parts:
-              - {path: fullname, type: string, is_nullable: false}
-
-
     auth:
       user: "admin"
       password: "admin"
