@@ -22,6 +22,11 @@ cartridge:
     runDir: /var/run/tarantool
     workDir: /var/lib/tarantool
 
+    securityContext:
+      fsGroup: 0
+      allowPrivilegeEscalation: true
+
+
     auth:
       user: "admin"
       password: "admin"
