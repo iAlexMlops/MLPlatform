@@ -23,7 +23,7 @@ cartridge:
     workDir: /var/lib/tarantool
 
     securityContext:
-      fsGroup: 0
+      fsGroup: 1200
       allowPrivilegeEscalation: true
 
 
