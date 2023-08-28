@@ -33,7 +33,7 @@ cartridge:
     roles:
       - name: storage
         securityContext:
-          runAsUser: 1200
+          runAsUser: 1000
         replicasets: 2
         replicas: 2
         vshard:
@@ -50,7 +50,7 @@ cartridge:
 
       - name: router
         securityContext:
-          runAsUser: 1200
+          runAsUser: 1000
         replicasets: 2
         replicas: 1
         service:
