@@ -15,7 +15,7 @@ cartridge:
   tarantool:
     image:
       repository: ialexmlops/cartridge
-      tag: test
+      tag: test-second
       pullPolicy: IfNotPresent
 
 
@@ -24,8 +24,6 @@ cartridge:
 
     securityContext:
       fsGroup: 1200
-      allowPrivilegeEscalation: true
-
 
     auth:
       user: "admin"
