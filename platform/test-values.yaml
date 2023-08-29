@@ -85,3 +85,13 @@ services:
       namespace: prometheus
       chart: charts/prometheus
     config:
+
+
+  grafana:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: grafana
+      namespace: grafana
+      chart: charts/grafana
+    config:
