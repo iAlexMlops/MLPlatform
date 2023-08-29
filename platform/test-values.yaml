@@ -17,15 +17,6 @@ global:
 
 
 services:
-  jenkins:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: jenkins
-      namespace: jenkins
-      chart: charts/jenkins
-    config:
-
 
   ingressNginx:
     enable: true
@@ -34,6 +25,16 @@ services:
       name: ingress-nginx
       namespace: ingress-nginx
       chart: charts/ingress-nginx
+    config:
+
+
+  jenkins:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: jenkins
+      namespace: jenkins
+      chart: charts/jenkins
     config:
 
 
@@ -56,7 +57,7 @@ services:
     config:
 
   tarantool:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: tarantool
