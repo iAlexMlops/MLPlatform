@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: docker-dind
+  name: docker-dind
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-dind
+  template:
+    metadata:
+      labels:
+        app: docker-dind
+    spec:
+      containers:
+        - image: docker:24.0.5-dind-rootless
+          name: docker-dind
+          env:
+            - name: DOCKER_HOST
+              value: tcp://0.0.0.0:2375
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+          volumeMounts:
+            - name: docker-dind-data-vol
+              mountPath: /var/lib/docker/
+          ports:
+            - name: daemon-port
+              containerPort: 2375
+              protocol: TCP
+          securityContext:
+            privileged: true
+      volumes:
+        - name: docker-dind-data-vol
+          persistentVolumeClaim:
+            claimName: docker-dind-data

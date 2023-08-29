@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: docker-dind
+  namespace: gitlab-managed-apps
+  name: docker-dind-clear-cache
+spec:
+  jobTemplate:
+    metadata:
+      labels:
+        app: docker-dind
+      name: docker-dind-clear-cache
+    spec:
+      template:
+        spec:
+          containers:
+            - command:
+                - docker
+                - system
+                - prune
+                - -af
+              image: docker:git
+              name: docker-dind-clear-cache
+              env:
+                - name: DOCKER_HOST
+                  value: tcp://docker-dind:2375
+          restartPolicy: OnFailure
+  schedule: 0 0 * * 0
