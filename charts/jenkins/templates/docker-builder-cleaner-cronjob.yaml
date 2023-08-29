@@ -3,7 +3,6 @@ kind: CronJob
 metadata:
   labels:
     app: docker-dind
-  namespace: gitlab-managed-apps
   name: docker-dind-clear-cache
 spec:
   jobTemplate:
