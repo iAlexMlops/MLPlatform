@@ -2,5 +2,6 @@ prometheus:
    server:
      ingress:
        enabled: true
+       pathType: ImplementationSpecific
        hosts:
          - prometheus.alex.localhost
