@@ -15,6 +15,7 @@ global:
     syncPolicy:
       selfHeal: false
 
+#ArgoCD 8LEKgYrfBCAfFNHE
 
 services:
 
