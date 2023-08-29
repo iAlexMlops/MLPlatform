@@ -4,4 +4,4 @@ grafana:
     ingressClassName: nginx
     pathType: ImplementationSpecific
     hosts:
-      - prometheus.alex.localhost
+      - grafana.alex.localhost
