@@ -1,0 +1,7 @@
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    pathType: ImplementationSpecific
+    hosts:
+      - prometheus.alex.localhost
