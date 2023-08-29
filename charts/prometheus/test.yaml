@@ -1,0 +1,5 @@
+prometheus:
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.alex.localhost

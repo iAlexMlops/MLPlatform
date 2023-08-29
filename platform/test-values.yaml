@@ -75,3 +75,13 @@ services:
       namespace: metrics-server
       chart: charts/metrics-server
     config:
+
+
+  prometheus:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: prometheus
+      namespace: prometheus
+      chart: charts/prometheus
+    config:
