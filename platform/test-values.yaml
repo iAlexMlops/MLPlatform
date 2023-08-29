@@ -65,3 +65,13 @@ services:
       namespace: tarantool
       chart: charts/tarantool
     config:
+
+
+  metrics-server:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: metrics-server
+      namespace: metrics-server
+      chart: charts/metrics-server
+    config:
