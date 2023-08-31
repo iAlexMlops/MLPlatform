@@ -32,6 +32,8 @@ spec:
           volumeMounts:
             - name: docker-dind-data-vol
               mountPath: /var/lib/docker
+            - name: docker-dind-daemon-config
+              mountPath: /etc/docker
           ports:
             - name: daemon-port
               containerPort: 2375
@@ -39,6 +41,9 @@ spec:
           securityContext:
             privileged: true
       volumes:
+        - name: docker-dind-daemon-config
+          configMap:
+            name: docker-dind-daemon-config
         - name: docker-dind-data-vol
           persistentVolumeClaim:
             claimName: docker-dind-data
