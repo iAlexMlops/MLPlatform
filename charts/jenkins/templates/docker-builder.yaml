@@ -34,7 +34,7 @@ spec:
               value: ""
           volumeMounts:
             - name: docker-dind-data-vol
-              mountPath: /home/rootless/.local/share/docker
+              mountPath: /var/lib/docker
           ports:
             - name: daemon-port
               containerPort: 2375
