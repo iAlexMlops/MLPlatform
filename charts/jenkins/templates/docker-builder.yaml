@@ -14,8 +14,13 @@ spec:
       labels:
         app: docker-dind
     spec:
-      securityContext:
-        fsGroup: 1000
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: [ "sh", "-c", "chown -R root:rootless /home/rootless/.local/share/docker" ]
+          volumeMounts:
+            - name: docker-dind-data-vol
+              mountPath: /home/rootless/.local/share/docker
       containers:
         - image: docker:24.0.5-dind-rootless
           name: docker-dind
