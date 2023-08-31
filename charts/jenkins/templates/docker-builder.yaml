@@ -24,9 +24,6 @@ spec:
       containers:
         - image: docker:24.0.5-dind-rootless
           name: docker-dind
-          command:
-            - sleep
-            - infinity
           env:
             - name: DOCKER_HOST
               value: tcp://0.0.0.0:2375
