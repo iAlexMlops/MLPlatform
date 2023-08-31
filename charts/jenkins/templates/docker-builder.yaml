@@ -14,13 +14,13 @@ spec:
       labels:
         app: docker-dind
     spec:
-{{/*      initContainers:*/}}
-{{/*        - name: volume-mount-hack*/}}
-{{/*          image: busybox*/}}
-{{/*          command: [ "sh", "-c", "chown -R 1000:1000 /home/rootless/.local/share/docker" ]*/}}
-{{/*          volumeMounts:*/}}
-{{/*            - name: docker-dind-data-vol*/}}
-{{/*              mountPath: /home/rootless/.local/share/docker*/}}
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: [ "sh", "-c", "chown -R 1000:1000 /home/rootless/.local/share/docker" ]
+          volumeMounts:
+            - name: docker-dind-data-vol
+              mountPath: /home/rootless/.local/share/docker
       containers:
         - image: docker:24.0.5-dind-rootless
           name: docker-dind
@@ -29,9 +29,9 @@ spec:
               value: tcp://0.0.0.0:2375
             - name: DOCKER_TLS_CERTDIR
               value: ""
-{{/*          volumeMounts:*/}}
-{{/*            - name: docker-dind-data-vol*/}}
-{{/*              mountPath: /var/lib/docker*/}}
+          volumeMounts:
+            - name: docker-dind-data-vol
+              mountPath: /home/rootless/.local/share/docker
 {{/*            - name: docker-dind-daemon-config*/}}
 {{/*              mountPath: /etc/docker*/}}
           ports:
@@ -40,10 +40,10 @@ spec:
               protocol: TCP
           securityContext:
             privileged: true
-{{/*      volumes:*/}}
+      volumes:
 {{/*        - name: docker-dind-daemon-config*/}}
 {{/*          configMap:*/}}
 {{/*            name: docker-dind-daemon-config*/}}
-{{/*        - name: docker-dind-data-vol*/}}
-{{/*          persistentVolumeClaim:*/}}
-{{/*            claimName: docker-dind-data*/}}
+        - name: docker-dind-data-vol
+          persistentVolumeClaim:
+            claimName: docker-dind-data
