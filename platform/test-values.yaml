@@ -98,7 +98,7 @@ services:
 
 
   longhorn:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: longhorn
