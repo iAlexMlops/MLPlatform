@@ -14,6 +14,8 @@ spec:
       labels:
         app: docker-dind
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
         - image: docker:24.0.5-dind-rootless
           name: docker-dind
