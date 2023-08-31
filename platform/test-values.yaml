@@ -78,7 +78,7 @@ services:
 
 
   prometheus:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: prometheus
@@ -88,20 +88,10 @@ services:
 
 
   grafana:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: grafana
       namespace: grafana
       chart: charts/grafana
-    config:
-
-
-  longhorn:
-    enable: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: longhorn
-      namespace: longhorn
-      chart: charts/longhorn
     config:
