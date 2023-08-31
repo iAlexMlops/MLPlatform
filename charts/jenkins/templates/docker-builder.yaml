@@ -14,16 +14,19 @@ spec:
       labels:
         app: docker-dind
     spec:
-      initContainers:
-        - name: volume-mount-hack
-          image: busybox
-          command: [ "sh", "-c", "chown -R 1000:1000 /home/rootless/.local/share/docker" ]
-          volumeMounts:
-            - name: docker-dind-data-vol
-              mountPath: /home/rootless/.local/share/docker
+{{/*      initContainers:*/}}
+{{/*        - name: volume-mount-hack*/}}
+{{/*          image: busybox*/}}
+{{/*          command: [ "sh", "-c", "chown -R 1000:1000 /home/rootless/.local/share/docker" ]*/}}
+{{/*          volumeMounts:*/}}
+{{/*            - name: docker-dind-data-vol*/}}
+{{/*              mountPath: /home/rootless/.local/share/docker*/}}
       containers:
-        - image: docker:24.0.5-dind-rootless
+        - image: docker:24.0.5-dind
           name: docker-dind
+          command:
+            - sleep
+            - infinity
           env:
             - name: DOCKER_HOST
               value: tcp://0.0.0.0:2375
@@ -31,7 +34,7 @@ spec:
               value: ""
           volumeMounts:
             - name: docker-dind-data-vol
-              mountPath: /home/rootless/.local/share/docker
+              mountPath: /var/lib/docker
           ports:
             - name: daemon-port
               containerPort: 2375
