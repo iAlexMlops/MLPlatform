@@ -95,3 +95,13 @@ services:
       namespace: grafana
       chart: charts/grafana
     config:
+
+
+  minio:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: minio
+      namespace: minio
+      chart: charts/minio
+    config:

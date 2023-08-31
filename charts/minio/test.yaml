@@ -1,0 +1,7 @@
+minio:
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hostname: minio.alex.localhost
+    path: /
+    pathType: ImplementationSpecific
