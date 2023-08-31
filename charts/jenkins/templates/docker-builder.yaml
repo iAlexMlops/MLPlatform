@@ -17,7 +17,7 @@ spec:
       initContainers:
         - name: volume-mount-hack
           image: busybox
-          command: [ "sh", "-c", "chown -R 0:1000 /home/rootless/.local/share/docker" ]
+          command: [ "sh", "-c", "chown -R 1000:1000 /home/rootless/.local/share/docker" ]
           volumeMounts:
             - name: docker-dind-data-vol
               mountPath: /home/rootless/.local/share/docker
@@ -34,7 +34,7 @@ spec:
               value: ""
           volumeMounts:
             - name: docker-dind-data-vol
-              mountPath: /var/lib/docker
+              mountPath: /home/rootless/.local/share/docker
           ports:
             - name: daemon-port
               containerPort: 2375
