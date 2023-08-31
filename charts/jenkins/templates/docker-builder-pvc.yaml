@@ -6,7 +6,7 @@ metadata:
   name: docker-dind-data
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
