@@ -22,28 +22,28 @@ spec:
 {{/*            - name: docker-dind-data-vol*/}}
 {{/*              mountPath: /home/rootless/.local/share/docker*/}}
       containers:
-        - image: docker:24.0.5-dind
+        - image: docker:24.0.5-dind-rootless
           name: docker-dind
           env:
             - name: DOCKER_HOST
               value: tcp://0.0.0.0:2375
             - name: DOCKER_TLS_CERTDIR
               value: ""
-          volumeMounts:
-            - name: docker-dind-data-vol
-              mountPath: /var/lib/docker
-            - name: docker-dind-daemon-config
-              mountPath: /etc/docker
+{{/*          volumeMounts:*/}}
+{{/*            - name: docker-dind-data-vol*/}}
+{{/*              mountPath: /var/lib/docker*/}}
+{{/*            - name: docker-dind-daemon-config*/}}
+{{/*              mountPath: /etc/docker*/}}
           ports:
             - name: daemon-port
               containerPort: 2375
               protocol: TCP
           securityContext:
             privileged: true
-      volumes:
-        - name: docker-dind-daemon-config
-          configMap:
-            name: docker-dind-daemon-config
-        - name: docker-dind-data-vol
-          persistentVolumeClaim:
-            claimName: docker-dind-data
+{{/*      volumes:*/}}
+{{/*        - name: docker-dind-daemon-config*/}}
+{{/*          configMap:*/}}
+{{/*            name: docker-dind-daemon-config*/}}
+{{/*        - name: docker-dind-data-vol*/}}
+{{/*          persistentVolumeClaim:*/}}
+{{/*            claimName: docker-dind-data*/}}
