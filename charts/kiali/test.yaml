@@ -1,3 +1,7 @@
 kiali-server:
   auth:
     strategy: token
+  external_services:
+    prometheus:
+      # Prometheus service name is "metrics" and is in the "telemetry" namespace
+      url: "http://prometheus.prometheus:9090/"
