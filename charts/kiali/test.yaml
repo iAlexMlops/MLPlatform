@@ -5,3 +5,5 @@ kiali-server:
     prometheus:
       # Prometheus service name is "metrics" and is in the "telemetry" namespace
       url: "http://prometheus-server.prometheus:80/"
+    grafana:
+      in_cluster_url: "http://grafana.grafana:80/"
