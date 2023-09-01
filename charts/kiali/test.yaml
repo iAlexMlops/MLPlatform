@@ -7,3 +7,4 @@ kiali-server:
       url: "http://prometheus-server.prometheus:80/"
     grafana:
       in_cluster_url: "http://grafana.grafana:80/"
+      url: "http://grafana.grafana:80/"
