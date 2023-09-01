@@ -1,15 +1,13 @@
 apiVersion: v2
-name: istio
+name: dognauts-istio
 description: A Helm chart for Kubernetes
-
 type: application
-version: 0.1.0
+version: 0.0.9
 appVersion: "1.16.0"
-
 dependencies:
-  - name: base
-    version: 1.19.0-rc.0
-    repository: https://istio-release.storage.googleapis.com/charts
   - name: istiod
-    version: 1.19.0-rc.0
+    version: 1.16.0
+    repository: https://istio-release.storage.googleapis.com/charts
+  - name: base
+    version: 1.16.0
     repository: https://istio-release.storage.googleapis.com/charts

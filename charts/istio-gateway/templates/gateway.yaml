@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Values.istioRef.gateway.name }}
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - {{ .Values.istioRef.gateway.hosts.grafana.host | quote }}
+      port:
+        name: "grafana-https"
+        number: 443
+        protocol: "HTTPS"
+      tls:
+        mode: "SIMPLE"
+        credentialName: {{ .Values.istioRef.gateway.hosts.grafana.credential_name | quote }}
+    - hosts:
+        - {{ .Values.istioRef.gateway.hosts.grafana.host | quote }}
+      port:
+        name: "grafana-http"
+        number: 80
+        protocol: "HTTP"
+      tls:
+        httpsRedirect: {{ .Values.istioRef.gateway.httpsRedirect }}

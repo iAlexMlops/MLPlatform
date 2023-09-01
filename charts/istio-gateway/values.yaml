@@ -1,0 +1,17 @@
+gateway:
+  autoscaling:
+    enabled: false
+  labels:
+    istio: ingressgateway
+
+image:
+  istioproxy: "istio/proxyv2:1.16.0"
+
+istioRef:
+  gateway:
+    name: alexgateway
+    httpsRedirect: "false"
+    hosts:
+      grafana:
+        host: "grafana.alex.localhost"
+        credential_name: grafana-credential
