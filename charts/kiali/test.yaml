@@ -1,0 +1,3 @@
+kiali-server:
+  login_token:
+    signing_key: "admin"
