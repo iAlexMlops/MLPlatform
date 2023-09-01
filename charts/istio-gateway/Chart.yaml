@@ -1,5 +1,5 @@
 apiVersion: v2
-name: istio
+name: istio-gateway
 description: A Helm chart for Kubernetes
 
 type: application
@@ -7,9 +7,6 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: base
-    version: 1.19.0-rc.0
-    repository: https://istio-release.storage.googleapis.com/charts
-  - name: istiod
+  - name: gateway
     version: 1.19.0-rc.0
     repository: https://istio-release.storage.googleapis.com/charts

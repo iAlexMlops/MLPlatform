@@ -16,7 +16,7 @@ global:
     syncPolicy:
       selfHeal: false
 
-#ArgoCD 8LEKgYrfBCAfFNHE
+#ArgoCD nqytE7-kZQnuZD-9
 
 services:
 
@@ -27,6 +27,15 @@ services:
       name: istio
       namespace: istio-system
       chart: charts/istio
+    config:
+
+  istio-gateway:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: istio-gateway
+      namespace: istio-system
+      chart: charts/istio-gateway
     config:
 
   ingressNginx:
