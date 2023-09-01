@@ -3,7 +3,7 @@ grafana:
   adminPassword: admin
 
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: nginx
     pathType: ImplementationSpecific
     hosts:

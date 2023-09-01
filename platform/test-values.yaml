@@ -114,7 +114,7 @@ services:
       namespace: grafana
       chart: charts/grafana
     config:
-      grafana.ingress.enabled: false
+#      grafana.ingress.enabled: false
 
 
   minio:
