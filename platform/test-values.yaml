@@ -39,13 +39,13 @@ services:
     config:
 
 
-  kiali-operator:
+  kiali:
     enable: true
     valueFile: *environmentValues
     argoApplication:
-      name: kiali-operator
-      namespace: kiali-operator
-      chart: charts/kiali-operator
+      name: kiali
+      namespace: kiali
+      chart: charts/kiali
     config:
 
 
