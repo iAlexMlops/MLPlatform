@@ -40,7 +40,7 @@ services:
 
 
   kiali-operator:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: kiali-operator
