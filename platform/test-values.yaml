@@ -44,7 +44,7 @@ services:
     valueFile: *environmentValues
     argoApplication:
       name: kiali
-      namespace: kiali
+      namespace: istio-system
       chart: charts/kiali
     config:
 
