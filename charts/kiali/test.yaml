@@ -1,5 +1,3 @@
 kiali-server:
   auth:
     strategy: token
-  login_token:
-    signing_key: "admin-secret-psw"
