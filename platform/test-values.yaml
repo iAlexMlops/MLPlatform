@@ -9,6 +9,7 @@ global:
   environment: test
   environmentValues: &environmentValues test.yaml
   argo:
+    ingressNginxEnabled: false
     apiVersion: argoproj.io/v1alpha1
     project: default
     namespace: argocd
@@ -19,8 +20,17 @@ global:
 
 services:
 
-  ingressNginx:
+  istio:
     enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: istio
+      namespace: istio-system
+      chart: charts/istio
+    config:
+
+  ingressNginx:
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: ingress-nginx
@@ -30,7 +40,7 @@ services:
 
 
   jenkins:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: jenkins
@@ -78,7 +88,7 @@ services:
 
 
   prometheus:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: prometheus
@@ -88,7 +98,7 @@ services:
 
 
   grafana:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: grafana
@@ -98,7 +108,7 @@ services:
 
 
   minio:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: minio
