@@ -38,6 +38,17 @@ services:
       chart: charts/istio-gateway
     config:
 
+
+  kiali-operator:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: kiali-operator
+      namespace: kiali
+      chart: charts/kiali-operator
+    config:
+
+
   ingressNginx:
     enable: false
     valueFile: *environmentValues
