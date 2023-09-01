@@ -107,7 +107,7 @@ services:
 
 
   grafana:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: grafana
