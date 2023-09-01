@@ -44,7 +44,7 @@ services:
     valueFile: *environmentValues
     argoApplication:
       name: kiali-operator
-      namespace: kiali
+      namespace: kiali-operator
       chart: charts/kiali-operator
     config:
 
