@@ -8,6 +8,7 @@ spec:
 global:
   environment: test
   environmentValues: &environmentValues test.yaml
+  ingress: istio
   argo:
     ingressNginxEnabled: false
     apiVersion: argoproj.io/v1alpha1
@@ -40,7 +41,7 @@ services:
 
 
   kiali:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: kiali
@@ -61,6 +62,7 @@ services:
 
   jenkins:
     enable: false
+    istioEnabled: true
     valueFile: *environmentValues
     argoApplication:
       name: jenkins
@@ -79,7 +81,7 @@ services:
     config:
 
   mlflow:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: mlflow

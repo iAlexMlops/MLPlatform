@@ -1,0 +1,4 @@
+argo-cd:
+  configs:
+    secret:
+      argocdServerAdminPassword: "$2y$10$fRp1Efm9lausaY09CHQ8qumwuu.nyDaw.erqGH4/XR911jX6GIXcK"
