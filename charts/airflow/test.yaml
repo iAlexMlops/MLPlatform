@@ -2,14 +2,6 @@ airflow:
   defaultAirflowRepository: apache/airflow
   airflowVersion: "2.7.0"
 
-
-  images:
-    airflow:
-      repository: ~
-      tag: ~
-      pullPolicy: Always
-
-
   ingress:
     enabled: false
     web:
@@ -23,22 +15,6 @@ airflow:
             enabled: true
             secretName: "airflow.alex.localhost"
 
-
-  executor: "KubernetesExecutor"
-
-
-  extraEnv: |
-    - name: AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE
-      value: 'Europe/Moscow'
-    - name: TZ
-      value: 'Europe/Moscow'
-    - name: FS_ETL_OMIT_VERSION
-      value: '1'
-    - name: HADOOP_CONF_DIR
-      value: '/opt/hadoop'
-
-
-
   webserver:
     defaultUser:
       enabled: true
@@ -50,60 +26,3 @@ airflow:
       email: a.egorov@ktsstudio.ru
       firstName: admin
       lastName: user
-
-  kerberos:
-    enabled: false
-
-
-  workers:
-    replicas: 1
-    strategy:
-      rollingUpdate:
-        maxSurge: "100%"
-        maxUnavailable: "50%"
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClassName: hostpath
-      fixPermissions: false
-    logGroomerSidecar:
-      command: ~
-      args: ["bash", "/clean-logs"]
-      retentionDays: 30
-
-
-  scheduler:
-    logGroomerSidecar:
-      enabled: true
-      command: ~
-      args: ["bash", "/clean-logs"]
-      retentionDays: 30
-
-
-  postgresql:
-    enabled: true
-    auth:
-      username: postgres
-      password: postgres
-    postgresqlDatabase: airflow
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClassName: hostpath
-
-
-  dags:
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClassName: hostpath
-      accessMode: ReadWriteOnce
-      existingClaim:
-      subPath: ~
-
-
-  logs:
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClassName: hostpath
