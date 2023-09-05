@@ -72,7 +72,7 @@ services:
 
 
   airflow:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: airflow

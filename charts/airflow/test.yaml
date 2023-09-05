@@ -13,7 +13,7 @@ airflow:
   ingress:
     enabled: true
     web:
-      enabled: true
+      enabled: false
       pathType: "ImplementationSpecific"
       host: "airflow.alex.localhost"
       ingressClassName: nginx
