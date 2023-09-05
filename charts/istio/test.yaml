@@ -16,3 +16,7 @@
 #      proxyMetadata: {}
 #  proxy:
 #    clusterDomain: "cluster.local"
+
+istiod:
+  global:
+    autoscalingv2API: true
