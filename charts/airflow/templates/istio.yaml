@@ -27,6 +27,6 @@ spec:
   http:
     - route:
         - destination:
-            host: airflow-service
+            host: airflow-webserver
             port:
-              number: 80
+              number: 8080
