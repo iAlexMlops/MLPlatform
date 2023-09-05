@@ -38,15 +38,6 @@ airflow:
       value: '/opt/hadoop'
 
 
-  data:
-    metadataConnection:
-      user: postgres
-      pass: postgres
-      protocol: postgresql
-      host: ~
-      port: 5432
-      db: airflow
-      sslmode: disable
 
   webserver:
     defaultUser:
@@ -89,26 +80,6 @@ airflow:
       retentionDays: 30
 
 
-  createUserJob:
-    useHelmHooks: false
-
-
-  migrateDatabaseJob:
-    useHelmHooks: false
-
-
-  statsd:
-    enabled: false
-
-
-  redis:
-    enabled: true
-    persistence:
-      enabled: true
-      storageClassName: hostpath
-      size: 1Gi
-
-
   postgresql:
     enabled: true
     auth:
@@ -119,7 +90,6 @@ airflow:
       enabled: true
       size: 1Gi
       storageClassName: hostpath
-
 
 
   dags:
