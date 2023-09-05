@@ -23,7 +23,7 @@ spec:
   hosts:
     - "airflow.alex.localhost"
   gateways:
-    - airflow-gateway
+    - mlflow/mlflow-gateway
   http:
     - route:
         - destination:
