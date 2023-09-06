@@ -61,7 +61,7 @@ services:
 
 
   jenkins:
-    enable: false
+    enable: true
     istioEnabled: true
     valueFile: *environmentValues
     argoApplication:
