@@ -6,12 +6,9 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-    - hosts:
-        - '*.alex.localhost'
-      port:
-        name: https
-        number: 443
-        protocol: HTTPS
-      tls:
-        mode: SIMPLE
-        credentialName: "platform-secret"
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*.alex.localhost"

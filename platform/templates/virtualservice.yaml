@@ -8,9 +8,7 @@ spec:
   gateways:
     - platform-gateway
   http:
-    - match:
-        - port: 443
-      route:
+    - route:
         - destination:
             host: argocd-server
             port:
