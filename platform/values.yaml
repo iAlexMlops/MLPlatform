@@ -20,7 +20,7 @@ global:
 services:
   # Network
   istio:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: istio
@@ -29,7 +29,7 @@ services:
     config:
 
   istio-gateway:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: istio-gateway
