@@ -6,7 +6,7 @@ spec:
   hosts:
     - "argocd.alex.localhost"
   gateways:
-    - argocd-gateway
+    - platform-gateway
   http:
     - route:
         - destination:
