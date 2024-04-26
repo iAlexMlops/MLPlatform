@@ -1,9 +1,0 @@
-mlflow:
-  ingress:
-    enabled: true
-    className: "nginx"
-    hosts:
-      - host: mlflow.alex.localhost
-        paths:
-          - path: /
-            pathType: ImplementationSpecific

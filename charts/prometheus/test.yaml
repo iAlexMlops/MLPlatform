@@ -1,8 +1,0 @@
-prometheus:
-   server:
-     ingress:
-       enabled: false
-       ingressClassName: nginx
-       pathType: ImplementationSpecific
-       hosts:
-         - prometheus.alex.localhost

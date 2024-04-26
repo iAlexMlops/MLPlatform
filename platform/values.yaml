@@ -1,28 +1,26 @@
 spec:
   source:
     repoURL: https://github.com/iAlexMlops/local-kubernetes-charts.git
-    targetRevision: HEAD
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
 
 global:
-  environment: test
-  environmentValues: &environmentValues test.yaml
+  environment: main
+  environmentValues: &environmentValues values.yaml
   ingress: istio
   argo:
-    ingressNginxEnabled: false
     apiVersion: argoproj.io/v1alpha1
     project: default
     namespace: argocd
     syncPolicy:
       selfHeal: false
 
-#ArgoCD nqytE7-kZQnuZD-9
 
 services:
-
+  # Network
   istio:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: istio
@@ -31,14 +29,13 @@ services:
     config:
 
   istio-gateway:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: istio-gateway
       namespace: istio-system
       chart: charts/istio-gateway
     config:
-
 
   kiali:
     enable: false
@@ -50,55 +47,7 @@ services:
     config:
 
 
-  ingressNginx:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: ingress-nginx
-      namespace: ingress-nginx
-      chart: charts/ingress-nginx
-    config:
-
-
-  jenkins:
-    enable: true
-    istioEnabled: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: jenkins
-      namespace: jenkins
-      chart: charts/jenkins
-    config:
-
-
-  airflow:
-    enable: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: airflow
-      namespace: airflow
-      chart: charts/airflow
-    config:
-
-  mlflow:
-    enable: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: mlflow
-      namespace: mlflow
-      chart: charts/mlflow
-    config:
-
-  tarantool:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: tarantool
-      namespace: tarantool
-      chart: charts/tarantool
-    config:
-
-
+  # Monitoring
   metrics-server:
     enable: false
     valueFile: *environmentValues
@@ -108,27 +57,35 @@ services:
       chart: charts/metrics-server
     config:
 
-
-  prometheus:
-    enable: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: prometheus
-      namespace: prometheus
-      chart: charts/prometheus
-    config:
-
-
   grafana:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: grafana
       namespace: grafana
       chart: charts/grafana
     config:
-#      grafana.ingress.enabled: false
 
+
+  # DevOps
+  jenkins:
+    enable: false
+    istioEnabled: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: jenkins
+      namespace: jenkins
+      chart: charts/jenkins
+    config:
+
+  mlflow:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: mlflow
+      namespace: mlflow
+      chart: charts/mlflow
+    config:
 
   minio:
     enable: false
@@ -138,3 +95,6 @@ services:
       namespace: minio
       chart: charts/minio
     config:
+
+
+  # Common
