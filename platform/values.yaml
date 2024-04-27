@@ -98,3 +98,11 @@ services:
 
 
   # Common
+  app:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: minio
+      namespace: minio
+      chart: charts/minio
+    config:
