@@ -102,7 +102,7 @@ services:
     enable: true
     valueFile: *environmentValues
     argoApplication:
-      name: minio
-      namespace: minio
-      chart: charts/minio
+      name: app
+      namespace: app
+      chart: charts/app
     config:
