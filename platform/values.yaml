@@ -49,7 +49,7 @@ services:
 
   # Monitoring
   metrics-server:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: metrics-server
@@ -78,15 +78,6 @@ services:
       chart: charts/jenkins
     config:
 
-  mlflow:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: mlflow
-      namespace: mlflow
-      chart: charts/mlflow
-    config:
-
   minio:
     enable: false
     valueFile: *environmentValues
@@ -96,13 +87,22 @@ services:
       chart: charts/minio
     config:
 
-
-  # Common
-  app:
+  cert-manager:
     enable: true
     valueFile: *environmentValues
     argoApplication:
-      name: app
-      namespace: app
-      chart: charts/app
+      name: cert-manager
+      namespace: cert-manager
+      chart: charts/cert-manager
+    config:
+
+  # Common
+
+  mlflow:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: mlflow
+      namespace: mlflow
+      chart: charts/mlflow
     config:
