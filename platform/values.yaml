@@ -88,7 +88,7 @@ services:
     config:
 
   cert-manager:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: cert-manager
@@ -96,7 +96,7 @@ services:
       chart: charts/cert-manager
     config:
 
-  # Common
+  # MLOps
 
   mlflow:
     enable: false
@@ -105,4 +105,14 @@ services:
       name: mlflow
       namespace: mlflow
       chart: charts/mlflow
+    config:
+
+  # Common
+  kuard:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: kuard
+      namespace: kuard
+      chart: charts/kuard
     config:
