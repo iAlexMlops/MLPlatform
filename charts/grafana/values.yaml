@@ -3,10 +3,10 @@ grafana:
   adminPassword: admin
 
   ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: istio
-    path: /
-    pathType: Prefix
-    hosts:
-      - grafana.alex.localhost
+    enabled: false
+#    annotations:
+#      kubernetes.io/ingress.class: istio
+#    path: /
+#    pathType: Prefix
+#    hosts:
+#      - grafana.alex.localhost
