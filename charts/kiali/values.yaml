@@ -29,6 +29,7 @@ kiali-operator:
             - name: Istio Wasm Extension Dashboard
           enabled: true
           in_cluster_url: http://monitoring-grafana.monitoring:80
+          url: "https://grafana.alex.localhost"
         prometheus:
           url: http://prometheus-operated.monitoring:9090
         istio:
