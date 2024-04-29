@@ -6,3 +6,30 @@ kiali-operator:
     spec:
       auth:
         strategy: "anonymous"
+      external_services:
+        custom_dashboards:
+          enabled: true
+        grafana:
+          auth:
+            insecure_skip_verify: true
+            password: 'prom-operator'
+            username: 'admin'
+          dashboards:
+            - name: Istio Service Dashboard
+              variables:
+                namespace: var-namespace
+                service: var-service
+            - name: Istio Workload Dashboard
+              variables:
+                namespace: var-namespace
+                workload: var-workload
+            - name: Istio Mesh Dashboard
+            - name: Istio Control Plane Dashboard
+            - name: Istio Performance Dashboard
+            - name: Istio Wasm Extension Dashboard
+          enabled: true
+          in_cluster_url: http://monitoring-grafana.monitoring:80
+        prometheus:
+          url: http://prometheus-operated.monitoring:9090
+        tracing:
+          enabled: false
