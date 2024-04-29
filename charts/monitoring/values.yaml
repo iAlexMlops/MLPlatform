@@ -1,1 +1,6 @@
-#kube-prometheus-stack:
+kube-prometheus-stack:
+  prometheusOperator:
+    tls:
+      enabled: false
+    admissionWebhooks:
+      enabled: false
