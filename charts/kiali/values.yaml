@@ -31,5 +31,22 @@ kiali-operator:
           in_cluster_url: http://monitoring-grafana.monitoring:80
         prometheus:
           url: http://prometheus-operated.monitoring:9090
+        istio:
+          component_status:
+            components:
+              - app_label: istiod
+                is_core: true
+                is_proxy: false
+                namespace: ''
+              # TODO: istio-ingressgateway not found
+              - app_label: istio-ingressgateway
+                is_core: true
+                is_proxy: true
+                namespace: ''
+              - app_label: istio-egressgateway
+                is_core: false
+                is_proxy: true
+                namespace: ''
+            enabled: false
         tracing:
           enabled: false
