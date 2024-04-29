@@ -1,0 +1,8 @@
+kiali-operator:
+  cr:
+    create: true
+    name: kiali
+    namespace: istio-system
+    spec:
+      auth:
+        strategy: "anonymous"

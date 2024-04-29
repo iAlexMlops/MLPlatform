@@ -125,3 +125,12 @@ services:
       namespace: monitoring
       chart: charts/monitoring
     config:
+
+  kiali-operator:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: kiali
+      namespace: kiali-operator
+      chart: charts/kiali
+    config:
