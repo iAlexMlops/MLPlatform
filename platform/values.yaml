@@ -62,7 +62,7 @@ services:
     valueFile: *environmentValues
     argoApplication:
       name: grafana
-      namespace: grafana
+      namespace: monitoring
       chart: charts/grafana
     config:
 
