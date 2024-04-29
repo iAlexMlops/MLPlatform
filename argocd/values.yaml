@@ -1,7 +1,12 @@
 argo-cd:
   configs:
+    params:
+      server.insecure: true
     repositories:
       main-platform-repo:
         url: https://github.com/iAlexMlops/MLPlatform.git
         name: Main platform repository
         type: git
+    secret:
+      argocdServerAdminPassword: "$2a$10$Vez/QiLsyjujyRQ5Og580.U2Ihh713NZMbNFyYB9FnRTIpM8WNmue"
+

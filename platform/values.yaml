@@ -109,10 +109,19 @@ services:
 
   # Common
   kuard:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: kuard
       namespace: kuard
       chart: charts/kuard
+    config:
+
+  victoria-logs:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: victoria-logs
+      namespace: monitoring
+      chart: charts/victoria-logs
     config:
