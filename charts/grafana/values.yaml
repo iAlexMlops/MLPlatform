@@ -4,12 +4,3 @@ grafana:
 
   ingress:
     enabled: false
-    ingressClassName: nginx
-    pathType: ImplementationSpecific
-    hosts:
-      - grafana.alex.localhost
-
-istioRef:
-  grafana:
-    gateways: "istio-system/alexgateway"
-    hosts: "grafana.alex.localhost"
