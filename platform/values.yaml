@@ -58,7 +58,7 @@ services:
     config:
 
   grafana:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: grafana
