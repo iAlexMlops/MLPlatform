@@ -1,3 +1,0 @@
-victoria-logs-single:
-  fluent-bit:
-    enabled: true
