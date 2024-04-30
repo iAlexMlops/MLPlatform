@@ -29,15 +29,7 @@ kube-prometheus-stack:
 
 loki:
   loki:
-    schema_config:
-      configs:
-        - from: 2024-04-01
-          object_store: s3
-          store: tsdb
-          schema: v1
-          index:
-            prefix: index_
-            period: 24h
+    useTestSchema: true
     storage:
       bucketNames:
         chunks: chunks
