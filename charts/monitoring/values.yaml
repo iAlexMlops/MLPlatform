@@ -4,11 +4,11 @@ kube-prometheus-stack:
       enabled: false
     admissionWebhooks:
       enabled: false
-    grafana:
-      defaultDashboardsEnabled: false
-      adminPassword: admin
-      dashboards:
-        jupyterhub:
-          local-dashboard:
-            url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/main/charts/monitoring/dashboards/jupyterhub.json
-            token: ''
+  grafana:
+    defaultDashboardsEnabled: false
+    adminPassword: admin
+    dashboards:
+      jupyterhub:
+        local-dashboard:
+          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/main/charts/monitoring/dashboards/jupyterhub.json
+          token: ''
