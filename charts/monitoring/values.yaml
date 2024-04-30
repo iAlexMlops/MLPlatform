@@ -4,3 +4,10 @@ kube-prometheus-stack:
       enabled: false
     admissionWebhooks:
       enabled: false
+  grafana:
+    defaultDashboardsEnabled: false
+    adminPassword: admin
+#    dashboards: { }
+      # default:
+      #   custom-dashboard:
+      #     file: dashboards/custom-dashboard.json
