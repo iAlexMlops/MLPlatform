@@ -30,8 +30,14 @@ kube-prometheus-stack:
 loki:
   loki:
     storage:
+      bucketNames:
+        chunks: chunks
+        ruler: ruler
+        admin: admin
       type: s3
       s3:
         endpoint: s3://minio.minio:9000
         secretAccessKey: password
         accessKeyId: admin
+#        s3ForcePathStyle: false
+#        insecure: false
