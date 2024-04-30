@@ -11,7 +11,7 @@ minio:
     buckets:
     - name: loki
       quota:
-        type: clear
+        type: set
         size: 3GiB
       tags:
         app: loki
