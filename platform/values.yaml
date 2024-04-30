@@ -92,9 +92,9 @@ services:
     enable: true
     valueFile: *environmentValues
     argoApplication:
-      name: mlflow
-      namespace: mlflow
-      chart: charts/mlflow
+      name: jupyterhub
+      namespace: jupyterhub
+      chart: charts/jupyterhub
     config:
 
   # Common
