@@ -37,15 +37,6 @@ services:
       chart: charts/istio-gateway
     config:
 
-  kiali:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: kiali
-      namespace: istio-system
-      chart: charts/kiali
-    config:
-
 
   # Monitoring
   metrics-server:
@@ -56,16 +47,6 @@ services:
       namespace: metrics-server
       chart: charts/metrics-server
     config:
-
-  grafana:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: grafana
-      namespace: monitoring
-      chart: charts/grafana
-    config:
-
 
   # DevOps
   minio:
@@ -89,7 +70,7 @@ services:
   # MLOps
 
   jupyterhub:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: jupyterhub
@@ -117,7 +98,7 @@ services:
     config:
 
   kiali-operator:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: kiali
