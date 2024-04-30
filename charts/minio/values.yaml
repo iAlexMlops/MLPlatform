@@ -5,3 +5,12 @@ minio:
   auth:
     rootUser: admin
     rootPassword: password
+
+  provisioning:
+    buckets:
+    - name: loki
+      quota:
+        type: clear
+        size: 3GiB
+      tags:
+        app: loki
