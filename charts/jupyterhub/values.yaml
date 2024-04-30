@@ -1,7 +1,6 @@
 formConf:
   images:
-    - base-notebook:stable
-    - base-notebook:dev
+    - minimal-notebook
 
 
 jupyterhub:
@@ -36,7 +35,7 @@ jupyterhub:
       - name: ALEX_SPAWNER_LDAP_BASE_DN
         value: "dc=example,dc=org"
       - name: DOCKER_REGISTRY
-        value: "mlops-docker-snapshots.binary.alfabank.ru"
+        value: "jupyter"
     service:
       type: ClusterIP
       extraPorts:
