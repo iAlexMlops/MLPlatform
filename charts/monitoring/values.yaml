@@ -19,9 +19,9 @@ kube-prometheus-stack:
           disableDeletion: false
           editable: true
           options:
-            path: /var/lib/grafana/dashboards/default
+            path: /var/lib/grafana/dashboards/Services
     dashboards:
-      default:
+      Services:
         jupyterhub:
           url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/main/charts/monitoring/dashboards/jupyterhub.json
           token: ''
