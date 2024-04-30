@@ -7,7 +7,7 @@ kube-prometheus-stack:
   grafana:
     defaultDashboardsEnabled: false
     adminPassword: admin
-#    dashboards: { }
-      # default:
-      #   custom-dashboard:
-      #     file: dashboards/custom-dashboard.json
+    dashboards:
+     ju:
+      custom-dashboard:
+        file: dashboards/jupyterhub.json
