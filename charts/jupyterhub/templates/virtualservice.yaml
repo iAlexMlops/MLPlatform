@@ -14,12 +14,12 @@ spec:
       - jupyterhub.alex.localhost
     route:
     - destination:
-        host: public-proxy
+        host: proxy-public
         port:
           number: 80
   http:
   - route:
     - destination:
-        host: public-proxy
+        host: proxy-public
         port:
           number: 80
