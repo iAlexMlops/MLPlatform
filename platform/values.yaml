@@ -69,7 +69,7 @@ services:
 
   # DevOps
   minio:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: minio

@@ -1,25 +1,25 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: jupyterhub-vs
+  name: minio-vs
 spec:
   hosts:
-  - jupyterhub.alex.localhost
+  - minio.alex.localhost
   gateways:
   - istio-system/platform-gateway
   tls:
   - match:
     - port: 443
       sniHosts:
-      - jupyterhub.alex.localhost
+      - minio.alex.localhost
     route:
     - destination:
-        host: proxy-public
+        host: minio
         port:
           number: 80
   http:
   - route:
     - destination:
-        host: proxy-public
+        host: minio
         port:
           number: 80
