@@ -4,4 +4,4 @@ minio:
 
   auth:
     rootUser: admin
-    rootPassword: admin
+    rootPassword: password
