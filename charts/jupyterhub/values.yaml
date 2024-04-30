@@ -5,6 +5,13 @@ formConf:
 
 
 jupyterhub:
+  prePuller:
+    hook:
+      enabled: false
+    continuous:
+      enabled: false
+    pullProfileListImages: false
+
   proxy:
     service:
       type: ClusterIP
@@ -36,12 +43,6 @@ jupyterhub:
         - name: debug
           port: 5678
 
-    prePuller:
-      hook:
-        enabled: false
-      continuous:
-        enabled: false
-      pullProfileListImages: false
 
     extraVolumeMounts:
       - name: form-conf
