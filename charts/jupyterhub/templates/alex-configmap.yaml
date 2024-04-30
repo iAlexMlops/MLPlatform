@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alexspawner-form-conf
+data:
+  formConf.yaml: |
+    images: 
+{{- toYaml .Values.formConf.images | nindent 6 }}
+    
+    groups:
+      default:
+        cpu:
+          min: 2
+          max: 8
+          default: 2
+          step: 1
+        mem:
+          min: 2
+          max: 32
+          default: 2
+          step: 2
+        gpu:
+          enabled: true
+          min: 0
+          max: 0
+          default: 0
+          step: 0
+        dedicatedNode:
+          enabled: true
+          nodeList:
+            - name: Общежитие 
+              value: 
+                key: "kubernetes.io/hostname"
+                val: "docker-desktop"
+

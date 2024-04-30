@@ -1,0 +1,64 @@
+formConf:
+  images:
+    - base-notebook:stable
+    - base-notebook:dev
+
+
+jupyterhub:
+  proxy:
+    service:
+      type: ClusterIP
+
+  ingress:
+    enabled: false
+    ingressClassName: nginx
+    hosts: [ jupyterhub.alex.localhost ]
+    pathType: Prefix
+
+  debug:
+    enabled: false
+
+  hub:
+    extraEnv:
+      - name: ALEX_SPAWNER_LDAP_SERVER
+        value: "ldap://host.docker.internal:1389"
+      - name: ALEX_SPAWNER_LDAP_USER
+        value: "cn=admin,dc=example,dc=org"
+      - name: ALEX_SPAWNER_LDAP_PASSWORD
+        value: "adminpassword"
+      - name: ALEX_SPAWNER_LDAP_BASE_DN
+        value: "dc=example,dc=org"
+      - name: DOCKER_REGISTRY
+        value: "mlops-docker-snapshots.binary.alfabank.ru"
+    service:
+      type: ClusterIP
+      extraPorts:
+        - name: debug
+          port: 5678
+
+    extraVolumeMounts:
+      - name: form-conf
+        mountPath: /tmp/
+    extraVolumes:
+      - name: form-conf
+        configMap:
+          name: alexspawner-form-conf
+          items:
+            - key: formConf.yaml
+              path: formConf.yaml
+
+#    command: ["tail"]
+#    args: ["-f", "/dev/null"]
+    readinessProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false
+    image:
+      name: alex-spawner
+      tag: "v2.0.0"
+      pullPolicy: Never
+
+    extraConfig:
+      spawner_define: |    
+        from alexspawner.spawner.spawner import AlexSpawner
+        c.JupyterHub.spawner_class = AlexSpawner

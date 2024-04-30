@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: docker-dind-daemon-config
-data:
-  daemon.json: |
-    {
-      "storage-driver": "overlay2"
-    }

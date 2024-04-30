@@ -68,16 +68,6 @@ services:
 
 
   # DevOps
-  jenkins:
-    enable: false
-    istioEnabled: true
-    valueFile: *environmentValues
-    argoApplication:
-      name: jenkins
-      namespace: jenkins
-      chart: charts/jenkins
-    config:
-
   minio:
     enable: false
     valueFile: *environmentValues
@@ -98,8 +88,8 @@ services:
 
   # MLOps
 
-  mlflow:
-    enable: false
+  jupyterhub:
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: mlflow
