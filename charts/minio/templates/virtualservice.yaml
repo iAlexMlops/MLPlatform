@@ -16,10 +16,10 @@ spec:
     - destination:
         host: minio
         port:
-          number: 80
+          number: 9001
   http:
   - route:
     - destination:
         host: minio
         port:
-          number: 80
+          number: 9001
