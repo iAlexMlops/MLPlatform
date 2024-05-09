@@ -1,4 +1,6 @@
 argo-cd:
+  crds:
+    install: false
   configs:
     params:
       server.insecure: true
@@ -10,3 +12,4 @@ argo-cd:
     secret:
       argocdServerAdminPassword: "$2a$10$Vez/QiLsyjujyRQ5Og580.U2Ihh713NZMbNFyYB9FnRTIpM8WNmue"
 
+#kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
