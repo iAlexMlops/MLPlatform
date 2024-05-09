@@ -6,6 +6,24 @@ kube-prometheus-stack:
       enabled: false
 
   grafana:
+    grafana.ini:
+      auth:
+        disable_login_form: true
+        oauth_auto_login: true
+        disable_signout_menu: false
+        signout_redirect_url: https://keycloak.alex.localhost/auth/realms/master/protocol/openid-connect/logout?redirect_uri=https://grafana.alex.localhost
+      server:
+        root_url: https://grafana.alex.localhost
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: true
+        scopes: openid email profile offline_access roles
+        name: Keycloak
+        auth_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/auth
+        token_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/token
+        api_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/userinfo
+        client_id: grafana-oauth
+        role_attribute_path: contains(not_null(roles[*],''), 'Admin') && 'Admin' || contains(not_null(roles[*],''), 'Editor') && 'Editor' || contains(not_null(roles[*],''), 'Viewer') && 'Viewer'|| ''
     defaultDashboardsEnabled: false
     adminPassword: admin
     dashboardProviders:
