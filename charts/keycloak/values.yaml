@@ -1,1 +1,20 @@
+keycloak:
+  auth:
+    adminUser: admin
+    adminPassword: "admin"
 
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hostname: keycloak.alex.localhost
+    servicePort: http
+    tls: false
+
+  keycloakConfigCli:
+    enabled: true
+    configuration:
+      realm1.json: |
+        {
+          "realm": "platform",
+          "clients": []
+        }

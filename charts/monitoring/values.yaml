@@ -1,4 +1,7 @@
 kube-prometheus-stack:
+  alertmanager:
+    enabled: false
+
   prometheusOperator:
     tls:
       enabled: false
@@ -6,24 +9,28 @@ kube-prometheus-stack:
       enabled: false
 
   grafana:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - grafana.alex.localhost
+    env:
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: cBZxLE51D8uIFxHKKhdUecgUoizycxZy
     grafana.ini:
-      auth:
-        disable_login_form: true
-        oauth_auto_login: true
-        disable_signout_menu: false
-        signout_redirect_url: https://keycloak.alex.localhost/auth/realms/master/protocol/openid-connect/logout?redirect_uri=https://grafana.alex.localhost
       server:
         root_url: https://grafana.alex.localhost
       auth.generic_oauth:
         enabled: true
-        allow_sign_up: true
-        scopes: email profile offline_access roles
         name: Keycloak
-        auth_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/auth
-        token_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/token
-        api_url: https://keycloak.alex.localhost/realms/master/protocol/openid-connect/userinfo
-        client_id: grafana-oauth
-        role_attribute_path: contains(not_null(roles[*],''), 'Admin') && 'Admin' || contains(not_null(roles[*],''), 'Editor') && 'Editor' || contains(not_null(roles[*],''), 'Viewer') && 'Viewer'|| ''
+        allow_sign_up: true
+        scopes: email profile offline_access
+        client_id: grafana
+        auth_url: http://keycloak.alex.localhost/realms/platform/protocol/openid-connect/auth
+        token_url: http://keycloak.keycloak:80/realms/platform/protocol/openid-connect/token
+        api_url: http://keycloak.keycloak:80/realms/platform/protocol/openid-connect/userinfo
+        role_attribute_path: contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-dev') && 'Editor' || 'Viewer'
+
     defaultDashboardsEnabled: false
     adminPassword: admin
     dashboardProviders:

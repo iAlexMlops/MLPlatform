@@ -89,7 +89,7 @@ services:
     config:
 
   monitoring:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: monitoring
