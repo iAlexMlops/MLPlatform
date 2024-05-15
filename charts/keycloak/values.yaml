@@ -1,4 +1,6 @@
 keycloak:
+  global:
+    storageClass: "fast.ru-9a"
   service:
     type: ClusterIP
     clusterIP: "10.111.40.30"
