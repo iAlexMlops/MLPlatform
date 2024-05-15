@@ -14,7 +14,7 @@ keycloak:
   ingress:
     enabled: true
     ingressClassName: "nginx"
-    hostname: keycloak.alex.localhost
+    hostname: keycloak.alex-localhost.ru
     servicePort: http
     tls: false
 

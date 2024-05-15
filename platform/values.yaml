@@ -106,6 +106,15 @@ services:
       chart: charts/monitoring
     config:
 
+  keycloak:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: keycloak
+      namespace: keycloak
+      chart: charts/keycloak
+    config:
+
   kiali-operator:
     enable: false
     valueFile: *environmentValues
