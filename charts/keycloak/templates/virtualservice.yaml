@@ -1,26 +1,26 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: argocd-vs
-  namespace: argocd
+  name: keycloak-vs
+  namespace: keycloak
 spec:
   hosts:
-  - argocd.alex.localhost
+  - keycloak.alex.localhost
   gateways:
   - istio-system/platform-gateway
   tls:
   - match:
     - port: 443
       sniHosts:
-      - argocd.alex.localhost
+      - keycloak.alex.localhost
     route:
     - destination:
-        host: argocd-server
+        host: keycloak
         port:
-          number: 443
+          number: 80
   http:
   - route:
     - destination:
-        host: argocd-server
+        host: keycloak
         port:
-          number: 443
+          number: 80

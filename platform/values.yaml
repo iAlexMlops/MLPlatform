@@ -19,8 +19,17 @@ global:
 
 services:
   # Network
-  istio:
+  ingressNginx:
     enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: ingress-nginx
+      namespace: ingress-nginx
+      chart: charts/ingress-nginx
+    config:
+
+  istio:
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: istio
@@ -29,7 +38,7 @@ services:
     config:
 
   istio-gateway:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: istio-gateway
@@ -40,7 +49,7 @@ services:
 
   # Monitoring
   metrics-server:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: metrics-server

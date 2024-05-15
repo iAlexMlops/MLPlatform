@@ -1,4 +1,12 @@
 keycloak:
+  service:
+    type: ClusterIP
+    clusterIP: "10.111.40.30"
+
+  extraEnvVars:
+  - name: KC_PROXY
+    value: "edge"
+
   auth:
     adminUser: admin
     adminPassword: "admin"

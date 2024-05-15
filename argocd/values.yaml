@@ -1,9 +1,32 @@
 argo-cd:
+  server:
+    ingress:
+      enabled: true
+#      annotations:
+#        nginx.ingress.kubernetes.io/rewrite-target: /
+      ingressClassName: "nginx"
+      hostname: "argocd.alex-localhost.ru"
+      path: /
+      pathType: Prefix
+      tls: false
   crds:
     install: true
+    #kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
   configs:
+    cm:
+      url: https://argocd.alex.localhost
+      oidc.config: |
+        name: Keycloak
+        issuer: http://keycloak.alex-localhost.ru/realms/master
+        clientID: argocd
+        clientSecret: $oidc.keycloak.clientSecret
+        requestedScopes: ["openid", "profile", "email", "groups"]
     params:
       server.insecure: true
+      dexserver.disable.tls: true
+      server.dex.server.plaintext: true
+#      server.x.frame.options: allow-from "http://keycloak.alex-localhost.ru"
+#      server.content.security.policy: frame-ancestors *
     repositories:
       main-platform-repo:
         url: https://github.com/iAlexMlops/MLPlatform.git
@@ -11,5 +34,5 @@ argo-cd:
         type: git
     secret:
       argocdServerAdminPassword: "$2a$10$Vez/QiLsyjujyRQ5Og580.U2Ihh713NZMbNFyYB9FnRTIpM8WNmue"
-
-#kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
+      extra:
+        oidc.keycloak.clientSecret: "zDc4kHcIQj0bp1dSiJWR9hSm1W4Imu1W"
