@@ -14,7 +14,7 @@ argo-cd:
     #kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
   configs:
     cm:
-      url: https://argocd.alex.localhost
+      url: https://argocd.alex-localhost.ru
       oidc.config: |
         name: Keycloak
         issuer: http://keycloak.alex-localhost.ru/realms/master
