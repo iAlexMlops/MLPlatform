@@ -1,13 +1,13 @@
 keycloak:
   global:
     storageClass: "fast.ru-9a"
-  service:
-    type: ClusterIP
-    clusterIP: "10.111.40.30"
-
-  extraEnvVars:
-  - name: KC_PROXY
-    value: "edge"
+#  service:
+#    type: ClusterIP
+#    clusterIP: "10.111.40.30"
+#
+#  extraEnvVars:
+#  - name: KC_PROXY
+#    value: "edge"
 
   auth:
     adminUser: admin
