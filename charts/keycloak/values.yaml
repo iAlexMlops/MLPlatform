@@ -21,7 +21,7 @@ keycloak:
     tls: true
     extraTls:
      - hosts:
-         - keycloak.local
+         - keycloak.alex-localhost.ru
        secretName: platform-certificate
 #    selfSigned: true
     annotations:
