@@ -17,7 +17,7 @@ argo-cd:
       url: https://argocd.alex-localhost.ru
       oidc.config: |
         name: Keycloak
-        issuer: http://keycloak.alex-localhost.ru/realms/master
+        issuer: https://keycloak.alex-localhost.ru/realms/master
         clientID: argocd
         clientSecret: $oidc.keycloak.clientSecret
         requestedScopes: ["openid", "profile", "email", "groups"]
