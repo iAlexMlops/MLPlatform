@@ -22,7 +22,7 @@ keycloak:
     extraTls:
      - hosts:
          - keycloak.local
-       secretName: keycloak.local-tls
+       secretName: platform-certificate
 #    selfSigned: true
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
