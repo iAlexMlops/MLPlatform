@@ -3,3 +3,7 @@ gateway:
     enabled: false
   labels:
     istio: ingressgateway
+  service:
+    annotations:
+      loadbalancer.openstack.org/flavor-id: "3265f75f-01eb-456d-9088-44b813d29a60"
+      loadbalancer.openstack.org/keep-floatingip: "true"

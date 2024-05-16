@@ -1,16 +1,12 @@
 argo-cd:
   server:
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: "nginx"
       hostname: "argocd.alex-localhost.ru"
       path: /
       pathType: Prefix
       tls: false
-      extraTls:
-        - hosts:
-            - argocd.alex-localhost.ru
-          secretName: platform-certificate
 
   crds:
     install: true

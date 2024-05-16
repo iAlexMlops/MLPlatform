@@ -20,7 +20,7 @@ global:
 services:
   # Network
   ingressNginx:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: ingress-nginx
@@ -29,7 +29,7 @@ services:
     config:
 
   istio:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: istio
@@ -38,7 +38,7 @@ services:
     config:
 
   istio-gateway:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: istio-gateway
