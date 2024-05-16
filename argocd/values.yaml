@@ -35,4 +35,4 @@ argo-cd:
     secret:
       argocdServerAdminPassword: "$2a$10$Vez/QiLsyjujyRQ5Og580.U2Ihh713NZMbNFyYB9FnRTIpM8WNmue"
       extra:
-        oidc.keycloak.clientSecret: "zDc4kHcIQj0bp1dSiJWR9hSm1W4Imu1W"
+        oidc.keycloak.clientSecret: "cR4Agamttc7L6n5HZ1bvii166IIR0ZCX"
