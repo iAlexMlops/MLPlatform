@@ -19,7 +19,11 @@ keycloak:
     hostname: keycloak.alex-localhost.ru
     servicePort: http
     tls: true
-    selfSigned: true
+    extraTls:
+     - hosts:
+         - keycloak.local
+       secretName: keycloak.local-tls
+#    selfSigned: true
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
