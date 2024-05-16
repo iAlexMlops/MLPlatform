@@ -21,6 +21,26 @@ argo-cd:
         clientID: argocd
         clientSecret: $oidc.keycloak.clientSecret
         requestedScopes: ["openid", "profile", "email", "groups"]
+        rootCA: |
+          -----BEGIN CERTIFICATE-----
+          MIIDFzCCAf+gAwIBAgIQef7FcmulcsBbj33K6umMTTANBgkqhkiG9w0BAQsFADAW
+          MRQwEgYDVQQDEwtrZXljbG9hay1jYTAeFw0yNDA1MTYxMTI4MTFaFw0yNTA1MTYx
+          MTI4MTFaMBYxFDASBgNVBAMTC2tleWNsb2FrLWNhMIIBIjANBgkqhkiG9w0BAQEF
+          AAOCAQ8AMIIBCgKCAQEAnU9ahWGPrO19lAuDVSgka6/EsOvUi0QsbRFvVGt7IAnh
+          5lZ47IVXklelC5A09VVXUWPwDSm6ywtJn7pkqA9MjRonhA5hR75H14CIfwSCi8lN
+          JCFFhpE5idj3pF/3RJO+LtSjhVKAZiqAvtUAGRDVGCtyrH1CJ7OgsCm4vDPYN1U/
+          UXL0a/crwEO/z18FnL8GQyY2O3HjJYNHFsYaxEYn/gi51yS6LdKgFn+YSGX+4im3
+          TA6c2k8qiyFAKXFIFsklRnMB9e1Rjeo1XBjz0GY6ZQh/a24WMUuqt4Wq5ONupH1/
+          Q7WqCF3xRk5hzqq60HHoEH3aNxcyO2e1Jmxm4dRTewIDAQABo2EwXzAOBgNVHQ8B
+          Af8EBAMCAqQwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB
+          /wQFMAMBAf8wHQYDVR0OBBYEFHRryB4ATMliBLnQgLdraQ448DHbMA0GCSqGSIb3
+          DQEBCwUAA4IBAQAw0IBnRvP1lpYBqJR1JMUE492Ei9W4EMRVdHtZ0qzH8P7ZVsjX
+          iJLAWimlop1qbJfk7fanxMvCoMy65Gz2mUOLx5GlyKgdmpAxWcpq/1wIBTAkbB3a
+          /oq4cjNUMteyunxiB/WmzwCb5+pWyshBKOxLsiHThcj2M+wdbsMCkqQzRrGjN69G
+          RJwnn/q6z6kNTPYzXSwETLLVoYRWbxiv0Rneyt1M2LKm1a2yvhbpGbsrhuitMR7U
+          Dfbqt9tuj8fqQKusRE+3AABJM7JpkErRhTzBYXo2SddQhieVSIxLSW6+B4TROoWC
+          v8jrDMgFrwG1Ii+RBgQTxgZRBYGr0gPRm/yd
+          -----END CERTIFICATE-----
     params:
       server.insecure: true
       dexserver.disable.tls: true
