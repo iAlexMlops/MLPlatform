@@ -18,7 +18,10 @@ keycloak:
     ingressClassName: "nginx"
     hostname: keycloak.alex-localhost.ru
     servicePort: http
-    tls: false
+    tls: true
+    selfSigned: true
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
   keycloakConfigCli:
     enabled: true
