@@ -27,10 +27,86 @@ keycloak:
 #      nginx.ingress.kubernetes.io/auth-tls-secret: "namespace/secretName"
 
   keycloakConfigCli:
-    enabled: false
-#    configuration:
-#      realm1.json: |
-#        {
-#          "realm": "platform",
-#          "clients": []
-#        }
+    enabled: true
+    configuration:
+      realm1.json: |
+        {
+          "realm": "master",
+          "clients": [
+            {
+              "clientId": "argocd",
+              "enabled": true,
+              "protocol": "openid-connect",
+              "rootUrl": "https://argocd.alex-localhost.ru",
+              "adminUrl": "https://argocd.alex-localhost.ru",
+              "baseUrl": "/applications",
+              "redirectUris": [
+                "https://argocd.alex-localhost.ru/auth/callback"
+              ],
+              "webOrigins": [
+                "https://argocd.alex-localhost.ru"
+              ],
+              "postLogoutRedirectUris": [
+                "+"
+              ],
+              "publicClient": true,
+              "standardFlowEnabled": true,
+              "implicitFlowEnabled": false,
+              "directAccessGrantsEnabled": false,
+              "serviceAccountsEnabled": false,
+              "authorizationServicesEnabled": false,
+              "clientAuthenticatorType": "client-secret",
+              "secret": "cR4Agamttc7L6n5HZ1bvii166IIR0ZCX",
+              "defaultClientScopes": [
+                "groups"
+              ]
+            }
+          ],
+          "clientScopes": [
+            {
+              "name": "groups",
+              "protocol": "openid-connect",
+              "description": "Scope for user groups",
+              "attributes": {
+                "include.in.token.scope": "true",
+                "display.on.consent.screen": "false"
+              },
+              "protocolMappers": [
+                {
+                  "name": "groups",
+                  "protocol": "openid-connect",
+                  "protocolMapper": "oidc-group-membership-mapper",
+                  "consentRequired": false,
+                  "config": {
+                    "claim.name": "groups",
+                    "jsonType.label": "String",
+                    "full.path": "false",
+                    "id.token.claim": "true",
+                    "access.token.claim": "true",
+                    "userinfo.token.claim": "true"
+                  }
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "name": "ArgoCDAdmins",
+              "path": "/ArgoCDAdmins"
+            }
+          ],
+          "users": [
+            {
+              "username": "alex",
+              "enabled": true,
+              "credentials": [
+                {
+                  "type": "password",
+                  "value": "alex",
+                  "temporary": false
+                }
+              ],
+              "groups": ["/ArgoCDAdmins"]
+            }
+          ]
+        }
