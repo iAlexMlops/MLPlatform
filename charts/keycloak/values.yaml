@@ -1,10 +1,13 @@
 keycloak:
   global:
     storageClass: "fast.ru-9a"
-#  service:
-#    type: ClusterIP
-#    clusterIP: "10.111.40.30"
-#
+  resources:
+    requests:
+      cpu: 100
+      memory: 1024Mi
+    limits:
+      cpu: 500
+      memory: 1280Mi
   extraEnvVars:
   - name: KC_PROXY
     value: "edge"
@@ -14,19 +17,20 @@ keycloak:
     adminPassword: "admin"
 
   ingress:
-    enabled: false
+    enabled: true
     ingressClassName: "nginx"
     hostname: keycloak.alex-localhost.ru
     servicePort: http
     tls: true
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#      nginx.ingress.kubernetes.io/auth-tls-secret: "namespace/secretName"
 
   keycloakConfigCli:
-    enabled: true
-    configuration:
-      realm1.json: |
-        {
-          "realm": "platform",
-          "clients": []
-        }
+    enabled: false
+#    configuration:
+#      realm1.json: |
+#        {
+#          "realm": "platform",
+#          "clients": []
+#        }
