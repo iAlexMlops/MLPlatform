@@ -28,25 +28,6 @@ services:
       chart: charts/ingress-nginx
     config:
 
-  istio:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: istio
-      namespace: istio-system
-      chart: charts/istio
-    config:
-
-  istio-gateway:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: istio-gateway
-      namespace: istio-system
-      chart: charts/istio-gateway
-    config:
-
-
   # Monitoring
   metrics-server:
     enable: false
@@ -55,46 +36,6 @@ services:
       name: metrics-server
       namespace: metrics-server
       chart: charts/metrics-server
-    config:
-
-  # DevOps
-  minio:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: minio
-      namespace: minio
-      chart: charts/minio
-    config:
-
-  cert-manager:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: cert-manager
-      namespace: cert-manager
-      chart: charts/cert-manager
-    config:
-
-  # MLOps
-
-  jupyterhub:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: jupyterhub
-      namespace: jupyterhub
-      chart: charts/jupyterhub
-    config:
-
-  # Common
-  kuard:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: kuard
-      namespace: kuard
-      chart: charts/kuard
     config:
 
   monitoring:
@@ -106,6 +47,16 @@ services:
       chart: charts/monitoring
     config:
 
+  # MLOps
+  jupyterhub:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: jupyterhub
+      namespace: jupyterhub
+      chart: charts/jupyterhub
+    config:
+
   keycloak:
     enable: true
     valueFile: *environmentValues
@@ -113,13 +64,4 @@ services:
       name: keycloak
       namespace: keycloak
       chart: charts/keycloak
-    config:
-
-  kiali-operator:
-    enable: false
-    valueFile: *environmentValues
-    argoApplication:
-      name: kiali
-      namespace: kiali-operator
-      chart: charts/kiali
     config:
