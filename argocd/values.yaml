@@ -52,8 +52,15 @@ argo-cd:
       hostname: "argocd.alex-localhost.ru"
       path: /
       pathType: Prefix
-      tls: false
-
+#      tls: false
+      extraTls:
+        - hosts:
+            - argocd.alex-localhost.ru
+          secretName: alex-localhost-tls
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#        nginx.ingress.kubernetes.io/proxy-ssl-secret: "ingress-nginx/alex-localhost-tls"
 
 
   configs:

@@ -21,7 +21,11 @@ keycloak:
     ingressClassName: "nginx"
     hostname: keycloak.alex-localhost.ru
     servicePort: http
-    tls: true
+    tls: false
+    extraTls:
+      - hosts:
+          - keycloak.alex-localhost.ru
+        secretName: alex-localhost-tls
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 #      nginx.ingress.kubernetes.io/auth-tls-secret: "namespace/secretName"
