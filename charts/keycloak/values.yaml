@@ -3,7 +3,7 @@ keycloak:
     storageClass: "fast.ru-9a"
   resources:
     requests:
-      cpu: 100
+      cpu: 10
       memory: 1024Mi
     limits:
       cpu: 500
