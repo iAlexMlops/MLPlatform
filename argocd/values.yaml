@@ -1,5 +1,51 @@
 argo-cd:
+  dex:
+    enabled: false
+
+  controller:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 20m
+        memory: 128Mi
+
+  redis:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+
+  repoServer:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+
+  applicationSet:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 16Mi
+
   server:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 20m
+        memory: 32Mi
     ingress:
       enabled: false
       ingressClassName: "nginx"
@@ -8,8 +54,8 @@ argo-cd:
       pathType: Prefix
       tls: false
 
-  crds:
-    install: true
+
+
   configs:
     cm:
       url: https://argocd.alex-localhost.ru
@@ -32,3 +78,6 @@ argo-cd:
       argocdServerAdminPassword: "$2a$10$Vez/QiLsyjujyRQ5Og580.U2Ihh713NZMbNFyYB9FnRTIpM8WNmue"
       extra:
         oidc.keycloak.clientSecret: "cR4Agamttc7L6n5HZ1bvii166IIR0ZCX"
+
+  crds:
+    install: true
