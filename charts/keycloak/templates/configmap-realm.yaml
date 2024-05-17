@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-realms
+data:
+  realm1.json: |
+    {
+      "realm": "master",
+      "clients": [
+        {
+          "clientId": "argocd",
+          "name": "ArgoCD Client",
+          "description": "",
+          "rootUrl": "https://argocd.alex-localhost.ru",
+          "adminUrl": "https://argocd.alex-localhost.ru",
+          "baseUrl": "/applications",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "secret": "gOwjpnw3vtBmyYWJra0rngUGblVzUqk4",
+          "redirectUris": [
+            "https://argocd.alex-localhost.ru/auth/callback"
+          ],
+          "webOrigins": [
+            "https://argocd.alex-localhost.ru"
+          ],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": false,
+          "publicClient": false,
+          "frontchannelLogout": true,
+          "protocol": "openid-connect",
+          "attributes": {
+            "oidc.ciba.grant.enabled": "false",
+            "client.secret.creation.time": "1715983454",
+            "backchannel.logout.session.required": "true",
+            "post.logout.redirect.uris": "+",
+            "display.on.consent.screen": "false",
+            "oauth2.device.authorization.grant.enabled": "false",
+            "backchannel.logout.revoke.offline.tokens": "false"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": true,
+          "nodeReRegistrationTimeout": -1,
+          "defaultClientScopes": [
+            "web-origins",
+            "acr",
+            "roles",
+            "profile",
+            "groups",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ],
+          "access": {
+            "view": true,
+            "configure": true,
+            "manage": true
+          }
+        }
+      ],
+      "clientScopes": [
+        {
+          "name": "groups",
+          "protocol": "openid-connect",
+          "description": "Scope for user groups",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "false"
+          },
+          "protocolMappers": [
+            {
+              "name": "groups",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-group-membership-mapper",
+              "consentRequired": false,
+              "config": {
+                "claim.name": "groups",
+                "jsonType.label": "String",
+                "full.path": "false",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "userinfo.token.claim": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "name": "ArgoCDAdmins",
+          "path": "/ArgoCDAdmins"
+        }
+      ],
+      "users": [
+        {
+          "username": "alex",
+          "enabled": true,
+          "credentials": [
+            {
+              "type": "password",
+              "value": "alex",
+              "temporary": false
+            }
+          ],
+          "groups": ["/ArgoCDAdmins"]
+        }
+      ]
+    }
+
