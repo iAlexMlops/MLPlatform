@@ -3,10 +3,10 @@ keycloak:
     storageClass: "fast.ru-9a"
   resources:
     requests:
-      cpu: 10
+#      cpu: 10
       memory: 128Mi
     limits:
-      cpu: 200
+#      cpu: 200
       memory: 1280Mi
   extraEnvVars:
   - name: KC_PROXY
