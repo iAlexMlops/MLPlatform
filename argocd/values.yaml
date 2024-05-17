@@ -47,7 +47,7 @@ argo-cd:
         cpu: 20m
         memory: 32Mi
     ingress:
-      enabled: false
+      enabled: true
       ingressClassName: "nginx"
       hostname: "argocd.alex-localhost.ru"
       path: /
