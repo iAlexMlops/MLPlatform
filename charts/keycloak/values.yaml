@@ -46,9 +46,6 @@ keycloak:
               "webOrigins": [
                 "https://argocd.alex-localhost.ru"
               ],
-              "postLogoutRedirectUris": [
-                "+"
-              ],
               "publicClient": true,
               "standardFlowEnabled": true,
               "implicitFlowEnabled": false,
