@@ -6,7 +6,7 @@ argo-workflows:
       enabled: true
       ingressClassName: "nginx"
       hosts:
-        - awf.alex.localhost
+        - keycloak.alex.localhost
       paths:
         - /
       pathType: Prefix
