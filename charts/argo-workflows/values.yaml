@@ -1,6 +1,6 @@
 argo-workflows:
   crds:
-    install: false
+    install: true
   server:
     ingress:
       enabled: true
