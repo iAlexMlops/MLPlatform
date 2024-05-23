@@ -57,11 +57,11 @@ services:
       chart: charts/jupyterhub
     config:
 
-  keycloak:
-    enable: false
+  dex:
+    enable: true
     valueFile: *environmentValues
     argoApplication:
-      name: keycloak
-      namespace: keycloak
-      chart: charts/keycloak
+      name: dex
+      namespace: dex
+      chart: charts/dex
     config:
