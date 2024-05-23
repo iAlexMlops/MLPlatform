@@ -58,7 +58,7 @@ services:
     config:
 
   dex:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: dex
