@@ -58,7 +58,7 @@ services:
     config:
 
   keycloak:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: keycloak

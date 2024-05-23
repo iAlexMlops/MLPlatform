@@ -1,0 +1,14 @@
+argo-workflows:
+  crds:
+    install: false
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hosts:
+        - argoworkflows.alex.localhost
+      paths:
+        - /
+      pathType: Prefix
+
+    authMode: server

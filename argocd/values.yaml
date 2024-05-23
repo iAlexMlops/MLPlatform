@@ -67,36 +67,36 @@ argo-cd:
         g, ArgoCDAdmins, role:admin
     cm:
       url: https://argocd.alex-localhost.ru
-      oidc.config: |
-        name: Keycloak
-        issuer: https://keycloak.alex-localhost.ru/realms/master
-        clientID: argocd
-        clientSecret: $oidc.keycloak.clientSecret
-        requestedScopes: ["openid", "profile", "email", "groups"]
-        rootCA: |
-          -----BEGIN CERTIFICATE-----
-          MIIDyTCCArGgAwIBAgIUd26HBmFALihvAKN218vZXSbPZpIwDQYJKoZIhvcNAQEL
-          BQAwdDELMAkGA1UEBhMCUlUxDzANBgNVBAgMBk1vc2NvdzEPMA0GA1UEBwwGTW9z
-          Y293MRUwEwYDVQQKDAxPcmdhbml6YXRpb24xEDAOBgNVBAsMB09yZ1VuaXQxGjAY
-          BgNVBAMMEWFsZXgtbG9jYWxob3N0LUNBMB4XDTI0MDUxNzIwNTE1OVoXDTI3MDMw
-          NzIwNTE1OVowdDELMAkGA1UEBhMCUlUxDzANBgNVBAgMBk1vc2NvdzEPMA0GA1UE
-          BwwGTW9zY293MRUwEwYDVQQKDAxPcmdhbml6YXRpb24xEDAOBgNVBAsMB09yZ1Vu
-          aXQxGjAYBgNVBAMMEWFsZXgtbG9jYWxob3N0LUNBMIIBIjANBgkqhkiG9w0BAQEF
-          AAOCAQ8AMIIBCgKCAQEAqunAJicplFDvEiuJGlyqzIX4zDCE2yfvip0Oyvdfu3iC
-          c2m1jaeu1bt4x7Q3hqj+RQfu42HDWfldTssdQ/Ze1eC8qMfIXs46tc03w8eToXvb
-          teYjAmJxGmscXyB+avuLk6a1pyF8cYY7UCfUnlctNP3P1MHKIaV0XxJHd94C1c95
-          gResoUa8DjoFo4tkuDMddZPKl23nOtbepBBqGJ9Im3uZdg9ppDoWxGXj3N3qgOvq
-          iUY/hKYhyvXaD0wMUjgJ/pg+VtamCUrlJJZg5bY9938auapdv2kW5WwwiPMqN9ha
-          gx1jY1XyIXilMRljwSSBOW8pPOLW2Emc7VbxLWJtzQIDAQABo1MwUTAdBgNVHQ4E
-          FgQUSYuvMwcdxV0DGKX6lafchMkfHEswHwYDVR0jBBgwFoAUSYuvMwcdxV0DGKX6
-          lafchMkfHEswDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAktnX
-          SlIs07Lzh4dtvhFkeQi4s1bOcD/KxDyYl4kELyYfuSn/Nmfcd44For+HH+bQnvKU
-          iclTzq2BMZdFmmdwzlyeKHZ/slYxxPFuu4g3vojECNZCqVA9tTMKbuxwvinL62ok
-          X9ZbSrfpoFEpmg/GU/JwHMLWv7TpEdvtclWKqZTs0o0pEvC5AjwS4mrMzU7VTDGT
-          0AsG41K5IjzVwVsqBbdODz5PN8vPb5YNpveYmp+R5E99Uq3XzuPvO8fXcgKJdTF4
-          WqZsaFKdwqiStwwvUjAF+E5m5KGaBIOIvvlcUDqRRwHI+9fdhimZ6lkhokaibspL
-          9wofaOqLFYLuIgpR/Q==
-          -----END CERTIFICATE-----
+#      oidc.config: |
+#        name: Keycloak
+#        issuer: https://keycloak.alex-localhost.ru/realms/master
+#        clientID: argocd
+#        clientSecret: $oidc.keycloak.clientSecret
+#        requestedScopes: ["openid", "profile", "email", "groups"]
+#        rootCA: |
+#          -----BEGIN CERTIFICATE-----
+#          MIIDyTCCArGgAwIBAgIUd26HBmFALihvAKN218vZXSbPZpIwDQYJKoZIhvcNAQEL
+#          BQAwdDELMAkGA1UEBhMCUlUxDzANBgNVBAgMBk1vc2NvdzEPMA0GA1UEBwwGTW9z
+#          Y293MRUwEwYDVQQKDAxPcmdhbml6YXRpb24xEDAOBgNVBAsMB09yZ1VuaXQxGjAY
+#          BgNVBAMMEWFsZXgtbG9jYWxob3N0LUNBMB4XDTI0MDUxNzIwNTE1OVoXDTI3MDMw
+#          NzIwNTE1OVowdDELMAkGA1UEBhMCUlUxDzANBgNVBAgMBk1vc2NvdzEPMA0GA1UE
+#          BwwGTW9zY293MRUwEwYDVQQKDAxPcmdhbml6YXRpb24xEDAOBgNVBAsMB09yZ1Vu
+#          aXQxGjAYBgNVBAMMEWFsZXgtbG9jYWxob3N0LUNBMIIBIjANBgkqhkiG9w0BAQEF
+#          AAOCAQ8AMIIBCgKCAQEAqunAJicplFDvEiuJGlyqzIX4zDCE2yfvip0Oyvdfu3iC
+#          c2m1jaeu1bt4x7Q3hqj+RQfu42HDWfldTssdQ/Ze1eC8qMfIXs46tc03w8eToXvb
+#          teYjAmJxGmscXyB+avuLk6a1pyF8cYY7UCfUnlctNP3P1MHKIaV0XxJHd94C1c95
+#          gResoUa8DjoFo4tkuDMddZPKl23nOtbepBBqGJ9Im3uZdg9ppDoWxGXj3N3qgOvq
+#          iUY/hKYhyvXaD0wMUjgJ/pg+VtamCUrlJJZg5bY9938auapdv2kW5WwwiPMqN9ha
+#          gx1jY1XyIXilMRljwSSBOW8pPOLW2Emc7VbxLWJtzQIDAQABo1MwUTAdBgNVHQ4E
+#          FgQUSYuvMwcdxV0DGKX6lafchMkfHEswHwYDVR0jBBgwFoAUSYuvMwcdxV0DGKX6
+#          lafchMkfHEswDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAktnX
+#          SlIs07Lzh4dtvhFkeQi4s1bOcD/KxDyYl4kELyYfuSn/Nmfcd44For+HH+bQnvKU
+#          iclTzq2BMZdFmmdwzlyeKHZ/slYxxPFuu4g3vojECNZCqVA9tTMKbuxwvinL62ok
+#          X9ZbSrfpoFEpmg/GU/JwHMLWv7TpEdvtclWKqZTs0o0pEvC5AjwS4mrMzU7VTDGT
+#          0AsG41K5IjzVwVsqBbdODz5PN8vPb5YNpveYmp+R5E99Uq3XzuPvO8fXcgKJdTF4
+#          WqZsaFKdwqiStwwvUjAF+E5m5KGaBIOIvvlcUDqRRwHI+9fdhimZ6lkhokaibspL
+#          9wofaOqLFYLuIgpR/Q==
+#          -----END CERTIFICATE-----
 
 
     params:
