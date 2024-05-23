@@ -65,3 +65,12 @@ services:
       namespace: dex
       chart: charts/dex
     config:
+
+  argo-workflows:
+    enable: true
+    valueFile: *environmentValues
+    argoApplication:
+      name: argo-workflows
+      namespace: argo
+      chart: charts/argo-workflows
+    config:

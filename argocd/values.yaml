@@ -1,6 +1,6 @@
 argo-cd:
   dex:
-    enabled: false
+    enabled: true
 
   controller:
     resources:
