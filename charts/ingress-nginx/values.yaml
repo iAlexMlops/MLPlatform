@@ -10,5 +10,5 @@ ingress-nginx:
         cpu: 200m
         memory: 254Mi
       requests:
-        cpu: 50m
+        cpu: 30m
         memory: 32Mi
