@@ -5,5 +5,5 @@ metadata:
   labels:
     grafana_dashboard: "1"
 data:
-  kubernetes.json: |
+  test.json: |
 {{ .Files.Get "dashboards/test.json" | indent 4 }}
