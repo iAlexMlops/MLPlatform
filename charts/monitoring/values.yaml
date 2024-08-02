@@ -115,6 +115,7 @@ victoria-metrics-k8s-stack:
 
     dashboardsConfigMaps:
       default: "grafana-dashboards"
+
     autoscaling:
       enabled: true
       minReplicas: 1
