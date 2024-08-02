@@ -100,13 +100,21 @@ victoria-metrics-k8s-stack:
       enabled: true
       hosts:
         - grafana.alex.localhost
-    dashboards:
-      default:
-        some-dashboard:
-          json: |
-            {{ .Files.Get "dashboards/test.json" | toJson }}
-        custom-dashboard:
-          file: dashboards/test.json
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+
+    dashboardsConfigMaps:
+      default: "grafana-dashboards"
     autoscaling:
       enabled: true
       minReplicas: 1
@@ -122,11 +130,6 @@ victoria-metrics-k8s-stack:
         enabled: true
         initDatasources: true
         createVMReplicasDatasources: false
-        jsonData: {}
-      dashboards:
-        enabled: true
-        label: grafana_dashboard
-        folder: /var/lib/grafana/dashboards
 
     defaultDashboardsTimezone: "Europe/Moscow"
     defaultDatasourceType: "prometheus"
