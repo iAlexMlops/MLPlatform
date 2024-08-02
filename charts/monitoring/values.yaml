@@ -92,6 +92,9 @@ victoria-metrics-k8s-stack:
 
   defaultDashboardsEnabled: false
   grafana:
+    grafana.ini:
+      grafana_net:
+        url: http://grafana.alex.localhost
     enabled: true
     ingress:
       enabled: true
