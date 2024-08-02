@@ -116,6 +116,9 @@ victoria-metrics-k8s-stack:
     dashboardsConfigMaps:
       default: "grafana-dashboards"
 
+    adminUser: admin
+    adminPassword: strongpassword
+
     autoscaling:
       enabled: true
       minReplicas: 1
