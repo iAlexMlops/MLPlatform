@@ -124,8 +124,9 @@ victoria-metrics-k8s-stack:
         createVMReplicasDatasources: false
         jsonData: {}
       dashboards:
-        enabled: false
-        multicluster: false
+        enabled: true
+        label: grafana_dashboard
+        folder: /var/lib/grafana/dashboards
 
     defaultDashboardsTimezone: "Europe/Moscow"
     defaultDatasourceType: "prometheus"
