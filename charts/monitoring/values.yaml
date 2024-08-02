@@ -1,52 +1,126 @@
-kube-prometheus-stack:
-  alertmanager:
+victoria-metrics-k8s-stack:
+  nameOverride: ""
+  fullnameOverride: "vms"
+
+  victoria-metrics-operator:
+    enabled: true
+    cleanupCRD: false
+
+  vmsingle:
     enabled: false
 
-  prometheusOperator:
-    tls:
-      enabled: false
-    admissionWebhooks:
-      enabled: false
+  vmcluster:
+    enabled: true
+    spec:
+      retentionPeriod: "3"
+      replicationFactor: 2
+      vmstorage:
+        replicaCount: 2
+        storageDataPath: "/vm-data"
+      vmselect:
+        replicaCount: 2
+        cacheMountPath: "/select-cache"
+      vminsert:
+        replicaCount: 2
 
+  alertmanager:
+    enabled: true
+
+  vmagent:
+    enabled: true
+    spec:
+      selectAllByDefault: true
+      scrapeInterval: 20s
+      inlineScrapeConfig: |
+        - job_name: argocd-server-metrics
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_service_name]
+              action: keep
+              regex: argocd-server-metrics
+            - source_labels: [__meta_kubernetes_endpoint_port_name]
+              action: keep
+              regex: http-metrics
+          scheme: http
+          metrics_path: /metrics
+        
+        - job_name: argocd-repo-server-metrics
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_service_name]
+              action: keep
+              regex: argocd-repo-server-metrics
+            - source_labels: [__meta_kubernetes_endpoint_port_name]
+              action: keep
+              regex: http-metrics
+          scheme: http
+          metrics_path: /metrics
+        
+        - job_name: argocd-applicationset-controller-metrics
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_service_name]
+              action: keep
+              regex: argocd-applicationset-controller-metrics
+            - source_labels: [__meta_kubernetes_endpoint_port_name]
+              action: keep
+              regex: http-metrics
+          scheme: http
+          metrics_path: /metrics
+        
+        - job_name: argocd-application-controller-metrics
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_service_name]
+              action: keep
+              regex: argocd-application-controller-metrics
+            - source_labels: [__meta_kubernetes_endpoint_port_name]
+              action: keep
+              regex: http-metrics
+          scheme: http
+          metrics_path: /metrics
+
+  kubeScheduler:
+    enabled: true
+
+  kubeEtcd:
+    enabled: false
+
+  defaultDashboardsEnabled: false
   grafana:
-    ingress:
+    enabled: true
+    autoscaling:
       enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx
-      hosts:
-        - grafana.alex.localhost
-    env:
-      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: cBZxLE51D8uIFxHKKhdUecgUoizycxZy
-    grafana.ini:
-      server:
-        root_url: https://grafana.alex.localhost
-      auth.generic_oauth:
+      minReplicas: 1
+      maxReplicas: 3
+    persistence:
+      type: pvc
+      enabled: true
+      accessModes:
+        - ReadWriteMany
+      size: 10Gi
+    sidecar:
+      datasources:
         enabled: true
-        name: Keycloak
-        allow_sign_up: true
-        scopes: email profile offline_access
-        client_id: grafana
-        auth_url: http://keycloak.alex.localhost/realms/platform/protocol/openid-connect/auth
-        token_url: http://keycloak.keycloak:80/realms/platform/protocol/openid-connect/token
-        api_url: http://keycloak.keycloak:80/realms/platform/protocol/openid-connect/userinfo
-        role_attribute_path: contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-dev') && 'Editor' || 'Viewer'
+        initDatasources: true
+        createVMReplicasDatasources: false
+        jsonData: {}
+      dashboards:
+        enabled: false
+        multicluster: false
 
-    defaultDashboardsEnabled: false
-    adminPassword: admin
-    dashboardProviders:
-      dashboard-providers.yaml:
-        apiVersion: 1
-        providers:
-        - name: 'default'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/services
-    dashboards:
-      services:
-        jupyterhub:
-          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/main/charts/monitoring/dashboards/jupyterhub.json
-          token: ''
+    defaultDashboardsTimezone: "Europe/Moscow"
+    defaultDatasourceType: "prometheus"
+
+  prometheus-node-exporter:
+    enabled: false
+
+  kube-state-metrics:
+    enabled: true
+
+  kubeControllerManager:
+    enabled: true

@@ -1,0 +1,24 @@
+kafka-ui:
+  replicaCount: 1
+
+  serviceAccount:
+    create: true
+
+  yamlApplicationConfig:
+    kafka:
+      clusters:
+        - name: kafka-fs-cluster
+          bootstrapServers: kafka-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
+          properties:
+            security.protocol: SASL_PLAINTEXT
+            sasl.mechanism: SCRAM-SHA-512
+            sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="fs-user" password="MBDmwL6K3Uae7wCJG5rftdiC9e5M2vqo";
+
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    path: "/"
+    pathType: "Prefix"
+    host: "kafka.alex.localhost"
+    tls:
+      enabled: false

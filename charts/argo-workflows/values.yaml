@@ -1,14 +1,35 @@
 argo-workflows:
+  workflow:
+    serviceAccount:
+      create: true
+
   crds:
-    install: true
+    install: false
+
   server:
     ingress:
       enabled: true
       ingressClassName: "nginx"
       hosts:
-        - awf.alex-localhost.ru
+        - argoworkflows.alex.localhost
       paths:
         - /
       pathType: Prefix
-
     authMode: server
+
+  controller:
+    workflowNamespaces:
+      - aw
+
+  artifactRepository:
+    archiveLogs: false
+    s3:
+      endpoint: http://minio:9000
+      accessKeySecret:
+        name: "minio-secret"
+        key: accesskey
+      secretKeySecret:
+        name: "minio-secret"
+        key: secretkey
+      insecure: false
+    bucket: argo-workflows

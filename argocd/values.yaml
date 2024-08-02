@@ -3,71 +3,34 @@ argo-cd:
     enabled: true
 
   controller:
-    resources:
-      limits:
-        cpu: 500m
-        memory: 512Mi
-      requests:
-        cpu: 20m
-        memory: 128Mi
+    metrics:
+      enabled: true
 
   redis:
-    resources:
-      limits:
-        cpu: 50m
-        memory: 64Mi
-      requests:
-        cpu: 10m
-        memory: 32Mi
+    metrics:
+      enabled: false
 
   repoServer:
-    resources:
-      limits:
-        cpu: 50m
-        memory: 128Mi
-      requests:
-        cpu: 10m
-        memory: 32Mi
+    metrics:
+      enabled: true
 
   applicationSet:
-    resources:
-      limits:
-        cpu: 50m
-        memory: 128Mi
-      requests:
-        cpu: 10m
-        memory: 16Mi
+    metrics:
+      enabled: true
+
 
   server:
-    resources:
-      limits:
-        cpu: 50m
-        memory: 256Mi
-      requests:
-        cpu: 20m
-        memory: 32Mi
+    metrics:
+      enabled: true
     ingress:
       enabled: true
       ingressClassName: "nginx"
-      hostname: "argocd.alex-localhost.ru"
+      hostname: "argocd.alex.localhost"
       path: /
       pathType: Prefix
-      extraTls:
-        - hosts:
-            - argocd.alex-localhost.ru
-          secretName: alex-localhost-tls
-      annotations:
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 
   configs:
-    rbac:
-      policy.csv: |
-        g, ArgoCDAdmins, role:admin
-    cm:
-      url: https://argocd.alex-localhost.ru
-
     params:
       server.insecure: true
       dexserver.disable.tls: true

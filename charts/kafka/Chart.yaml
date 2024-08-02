@@ -1,0 +1,15 @@
+apiVersion: v2
+name: kafka-ui-chart
+version: 0.7.0
+description: Kafka UI chart for Kubernetes
+
+maintainers:
+  - name: Alex Egorov
+    email: a.egorov@ktsstudio.ru
+
+appVersion: "1.0.0"
+
+dependencies:
+  - name: kafka-ui
+    version: 0.7.0
+    repository: https://provectus.github.io/kafka-ui-charts
