@@ -6,4 +6,4 @@ metadata:
     grafana_dashboard: "1"
 data:
   kubernetes.json: |
-{{ .Files.Get "dashboards/kubernetes.json" | indent 4 }}
+{{ .Files.Get "dashboards/test.json" | indent 4 }}
