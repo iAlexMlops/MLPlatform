@@ -99,6 +99,9 @@ victoria-metrics-k8s-stack:
         - grafana.alex.localhost
     dashboards:
       default:
+        some-dashboard:
+          json: |
+            {{ .Files.Get "dashboards/test.json" | toJson }}
         custom-dashboard:
           file: dashboards/test.json
     autoscaling:
