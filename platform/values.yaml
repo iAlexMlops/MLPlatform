@@ -39,7 +39,7 @@ services:
     config:
 
   monitoring:
-    enable: false
+    enable: true
     valueFile: *environmentValues
     argoApplication:
       name: monitoring
@@ -67,7 +67,7 @@ services:
     config:
 
   argo-workflows:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: argo-workflows
