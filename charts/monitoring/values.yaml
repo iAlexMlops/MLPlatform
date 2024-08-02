@@ -93,6 +93,14 @@ victoria-metrics-k8s-stack:
   defaultDashboardsEnabled: false
   grafana:
     enabled: true
+    ingress:
+      enabled: true
+      hosts:
+        - grafana.alex.localhost
+    dashboards:
+      default:
+        custom-dashboard:
+          file: dashboards/test.json
     autoscaling:
       enabled: true
       minReplicas: 1
