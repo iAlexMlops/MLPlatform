@@ -95,29 +95,31 @@ victoria-metrics-k8s-stack:
     enabled: true
 
     grafana.ini:
-      grafana_net:
-        url: http://grafana.alex.localhost
+      server:
+        domain: grafana.alex.localhost
+        root_url: http://grafana.alex.localhost
+        serve_from_sub_path: true
 
     ingress:
       enabled: true
       hosts:
         - grafana.alex.localhost
 
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: 'default'
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
+#    dashboardProviders:
+#      dashboardproviders.yaml:
+#        apiVersion: 1
+#        providers:
+#          - name: 'default'
+#            orgId: 1
+#            folder: ''
+#            type: file
+#            disableDeletion: false
+#            editable: true
+#            options:
+#              path: /var/lib/grafana/dashboards/default
 
     dashboardsConfigMaps:
-      default: "grafana-dashboards"
+      default: "test-dash"
 
     adminUser: admin
     adminPassword: strongpassword

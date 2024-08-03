@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-dashboards
+  name: test-dash
   labels:
     grafana_dashboard: "1"
 data:
