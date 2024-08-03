@@ -25,6 +25,8 @@ victoria-metrics-k8s-stack:
 
   alertmanager:
     enabled: true
+  defaultRules:
+    create: false
 
   vmagent:
     enabled: true
