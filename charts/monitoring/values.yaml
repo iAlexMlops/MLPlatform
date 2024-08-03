@@ -119,7 +119,7 @@ victoria-metrics-k8s-stack:
 #              path: /var/lib/grafana/dashboards/default
 
     dashboardsConfigMaps:
-      default: "test-dash"
+      test: "test-dash"
 
     adminUser: admin
     adminPassword: strongpassword
