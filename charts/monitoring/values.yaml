@@ -137,7 +137,7 @@ victoria-metrics-k8s-stack:
     defaultDatasourceType: "prometheus"
 
   prometheus-node-exporter:
-    enabled: false
+    enabled: true
 
   kube-state-metrics:
     enabled: true
