@@ -109,21 +109,8 @@ victoria-metrics-k8s-stack:
       hosts:
         - grafana.alex.localhost
 
-#    dashboardProviders:
-#      dashboardproviders.yaml:
-#        apiVersion: 1
-#        providers:
-#          - name: 'default'
-#            orgId: 1
-#            folder: ''
-#            type: file
-#            disableDeletion: false
-#            editable: true
-#            options:
-#              path: /var/lib/grafana/dashboards/default
-
     dashboardsConfigMaps:
-      test: "test-dash"
+      external: "grafana-external-dashboards"
 
     adminUser: admin
     adminPassword: strongpassword
