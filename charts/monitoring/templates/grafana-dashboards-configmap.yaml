@@ -9,3 +9,5 @@ data:
 {{ .Files.Get "dashboards/argocd.json" | indent 4 }}
   kubernetes.json: |
 {{ .Files.Get "dashboards/kubernetes.json" | indent 4 }}
+  home.json: |
+{{ .Files.Get "dashboards/home.json" | indent 4 }}
