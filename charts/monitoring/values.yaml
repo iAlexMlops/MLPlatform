@@ -101,6 +101,8 @@ victoria-metrics-k8s-stack:
         domain: grafana.alex.localhost
         root_url: http://grafana.alex.localhost
         serve_from_sub_path: true
+      dashboards:
+        default_home_dashboard_path: /var/lib/grafana/dashboards/external/home.json
 
     ingress:
       enabled: true
