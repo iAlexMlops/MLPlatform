@@ -113,6 +113,7 @@ victoria-metrics-k8s-stack:
 
     dashboardsConfigMaps:
       external: "grafana-external-dashboards"
+      minio: "grafana-minio-dashboards"
 
     adminUser: admin
     adminPassword: strongpassword

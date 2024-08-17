@@ -11,5 +11,3 @@ data:
 {{ .Files.Get "dashboards/kubernetes.json" | indent 4 }}
   home.json: |
 {{ .Files.Get "dashboards/home.json" | indent 4 }}
-  minio.json: |
-{{ .Files.Get "dashboards/minio.json" | indent 4 }}
