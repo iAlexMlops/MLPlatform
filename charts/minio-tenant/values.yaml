@@ -32,6 +32,9 @@ tenant:
     buckets:
       - name: models
 
+    env:
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+
     prometheusOperator: false
 
   ingress:

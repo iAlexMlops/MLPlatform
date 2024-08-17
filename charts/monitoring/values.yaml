@@ -85,6 +85,12 @@ victoria-metrics-k8s-stack:
               regex: http-metrics
           scheme: http
           metrics_path: /metrics
+        
+        - job_name: minio-job
+          metrics_path: /minio/v2/metrics/cluster
+          scheme: https
+          static_configs:
+          - targets: ['minio.minio-tenant:443']
 
   kubeScheduler:
     enabled: true
