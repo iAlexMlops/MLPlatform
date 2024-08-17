@@ -19,7 +19,7 @@ argo-workflows:
 
   controller:
     workflowNamespaces:
-      - aw
+      - argo
 
   artifactRepository:
     archiveLogs: false
