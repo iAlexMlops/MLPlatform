@@ -8,7 +8,7 @@ spec:
 global:
   environment: main
   environmentValues: &environmentValues values.yaml
-  ingress: istio
+  ingress: nginx
   argo:
     apiVersion: argoproj.io/v1alpha1
     project: default
@@ -73,4 +73,23 @@ services:
       name: argo-workflows
       namespace: argo
       chart: charts/argo-workflows
+    config:
+
+  # Others
+  minio-operator:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: minio-operator
+      namespace: minio-operator
+      chart: charts/minio-operator
+    config:
+
+  minio-tenant:
+    enable: false
+    valueFile: *environmentValues
+    argoApplication:
+      name: minio-tenant
+      namespace: minio-tenant
+      chart: charts/minio-tenant
     config:
