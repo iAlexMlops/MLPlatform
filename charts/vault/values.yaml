@@ -1,0 +1,9 @@
+vault-secrets-webhook:
+  image:
+    repository: ghcr.io/bank-vaults/vault-secrets-webhook
+    tag: "v1.21.2"
+
+vault-operator:
+  image:
+    repository: ghcr.io/bank-vaults/vault-operator
+    tag: "v1.22.0"

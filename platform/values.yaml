@@ -77,7 +77,7 @@ services:
 
   # Others
   minio-operator:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: minio-operator
@@ -86,7 +86,7 @@ services:
     config:
 
   minio-tenant:
-    enable: true
+    enable: false
     valueFile: *environmentValues
     argoApplication:
       name: minio-tenant
