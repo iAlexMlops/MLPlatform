@@ -1,0 +1,13 @@
+apiVersion: v2
+name: fluent
+description: A Helm chart for Kubernetes
+
+
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+
+dependencies:
+  - name: fluent-bit
+    version: 0.47.10
+    repository: https://fluent.github.io/helm-charts

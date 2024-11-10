@@ -46,90 +46,49 @@ victoria-metrics-k8s-stack:
               regex: http-metrics
           scheme: http
           metrics_path: /metrics
-        
-        - job_name: argocd-repo-server-metrics
-          kubernetes_sd_configs:
-            - role: endpoints
-          relabel_configs:
-            - source_labels: [__meta_kubernetes_service_name]
-              action: keep
-              regex: argocd-repo-server-metrics
-            - source_labels: [__meta_kubernetes_endpoint_port_name]
-              action: keep
-              regex: http-metrics
-          scheme: http
-          metrics_path: /metrics
-        
-        - job_name: argocd-applicationset-controller-metrics
-          kubernetes_sd_configs:
-            - role: endpoints
-          relabel_configs:
-            - source_labels: [__meta_kubernetes_service_name]
-              action: keep
-              regex: argocd-applicationset-controller-metrics
-            - source_labels: [__meta_kubernetes_endpoint_port_name]
-              action: keep
-              regex: http-metrics
-          scheme: http
-          metrics_path: /metrics
-        
-        - job_name: argocd-application-controller-metrics
-          kubernetes_sd_configs:
-            - role: endpoints
-          relabel_configs:
-            - source_labels: [__meta_kubernetes_service_name]
-              action: keep
-              regex: argocd-application-controller-metrics
-            - source_labels: [__meta_kubernetes_endpoint_port_name]
-              action: keep
-              regex: http-metrics
-          scheme: http
-          metrics_path: /metrics
-        
-        - job_name: minio-job
-          metrics_path: /minio/v2/metrics/cluster
-          scheme: https
-          static_configs:
-          - targets: ['minio.minio-tenant:443']
 
   kubeScheduler:
     enabled: true
 
   kubeEtcd:
-    enabled: false
+    enabled: true
 
   defaultDashboardsEnabled: false
+
   grafana:
     enabled: true
 
     grafana.ini:
       server:
-        domain: grafana.alex.localhost
-        root_url: http://grafana.alex.localhost
+        domain: grafana.alex-localhost.ru
+        root_url: https://grafana.alex-localhost.ru
         serve_from_sub_path: true
       dashboards:
         default_home_dashboard_path: /var/lib/grafana/dashboards/external/home.json
+
+    initChownData:
+      enabled: false
 
     ingress:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
       hosts:
-        - grafana.alex.localhost
+        - grafana.alex-localhost.ru
 
     dashboardsConfigMaps:
       external: "grafana-external-dashboards"
       minio: "grafana-minio-dashboards"
 
-    adminUser: admin
-    adminPassword: strongpassword
+    adminUser: alex
+    adminPassword: aEOH2oKstt1pkgYfY9JQ6Boe2rfA
 
     persistence:
       type: pvc
       enabled: true
       accessModes:
         - ReadWriteMany
-      size: 3Gi
+      size: 2Gi
 
     defaultDashboardsTimezone: "Europe/Moscow"
     defaultDatasourceType: "prometheus"
