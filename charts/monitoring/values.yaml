@@ -87,6 +87,8 @@ victoria-metrics-k8s-stack:
           url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/kubernetes.json
         node_exporter:
           url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/node_exporter.json
+        loki:
+          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/loki.json
 
 
     adminUser: alex
