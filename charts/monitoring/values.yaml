@@ -64,7 +64,7 @@ victoria-metrics-k8s-stack:
         root_url: https://grafana.alex-localhost.ru
         serve_from_sub_path: true
       dashboards:
-        default_home_dashboard_path: /var/lib/grafana/dashboards/external/home.json
+        default_home_dashboard_path: /var/lib/grafana/dashboards/default/home.json
 
     initChownData:
       enabled: false
@@ -76,9 +76,18 @@ victoria-metrics-k8s-stack:
       hosts:
         - grafana.alex-localhost.ru
 
-    dashboardsConfigMaps:
-      external: "grafana-external-dashboards"
-      minio: "grafana-minio-dashboards"
+#    dashboardsConfigMaps:
+#      external: "grafana-external-dashboards"
+
+    dashboards:
+      default:
+        home:
+          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/home.json
+        kubernetes:
+          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/kubernetes.json
+        node_exporter:
+          url: https://raw.githubusercontent.com/iAlexMlops/MLPlatform/refs/heads/main/charts/monitoring/dashboards/node_exporter.json
+
 
     adminUser: alex
     adminPassword: aEOH2oKstt1pkgYfY9JQ6Boe2rfA
@@ -100,6 +109,10 @@ victoria-metrics-k8s-stack:
 
   kube-state-metrics:
     enabled: true
+
+    metricLabelsAllowlist:
+      - pods=[app.kubernetes.io/name]
+
 
   kubeControllerManager:
     enabled: true

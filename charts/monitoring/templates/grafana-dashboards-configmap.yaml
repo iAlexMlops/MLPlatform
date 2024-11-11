@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-external-dashboards
-  labels:
-    grafana_dashboard: "1"
-data:
-  argocd.json: |
-{{ .Files.Get "dashboards/argocd.json" | indent 4 }}
-  kubernetes.json: |
-{{ .Files.Get "dashboards/kubernetes.json" | indent 4 }}
-  home.json: |
-{{ .Files.Get "dashboards/home.json" | indent 4 }}
+{{/*apiVersion: v1*/}}
+{{/*kind: ConfigMap*/}}
+{{/*metadata:*/}}
+{{/*  name: grafana-external-dashboards*/}}
+{{/*  labels:*/}}
+{{/*    grafana_dashboard: "1"*/}}
+{{/*data:*/}}
+{{/*  argocd.json: |*/}}
+{{/*{{ .Files.Get "dashboards/argocd.json" | indent 4 }}*/}}
+{{/*  kubernetes.json: |*/}}
+{{/*{{ .Files.Get "dashboards/kubernetes.json" | indent 4 }}*/}}
+{{/*  home.json: |*/}}
+{{/*{{ .Files.Get "dashboards/home.json" | indent 4 }}*/}}

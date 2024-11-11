@@ -28,6 +28,7 @@ fluent-bit:
 
     outputs: |
       [OUTPUT]
-          Name  stdout
-          Match *
-
+          name   loki
+          match  *
+          host   loki-gateway.loki
+          port   80
