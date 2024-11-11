@@ -1,43 +1,51 @@
 loki:
-  deploymentMode: SingleBinary
 
   loki:
-    auth_enabled: false
     commonConfig:
       replication_factor: 1
-    storage:
-      type: 'filesystem'
     schemaConfig:
       configs:
-      - from: "2024-01-01"
-        store: tsdb
-        index:
-          prefix: loki_index_
-          period: 24h
-        object_store: filesystem # we're storing on filesystem so there's no real persistence here.
-        schema: v13
+        - from: 2024-04-01
+          store: tsdb
+          object_store: s3
+          schema: v13
+          index:
+            prefix: loki_index_
+            period: 24h
+    ingester:
+      chunk_encoding: snappy
+    tracing:
+      enabled: true
+    querier:
+      max_concurrent: 2
 
-  resultsCache:
-    enabled: false
+
+  deploymentMode: SingleBinary
+  singleBinary:
+    replicas: 1
     resources:
       limits:
         cpu: 500m
-        memory: 512Mi
+        memory: 800Mi
       requests:
         cpu: 50m
-        memory: 128Mi
-
-
-  singleBinary:
-    replicas: 1
+        memory: 200Mi
+    extraEnv:
+      - name: GOMEMLIMIT
+        value: 750MiB
 
   chunksCache:
-    enabled: false
     writebackSizeLimit: 10MB
+    resources:
+      limits:
+        cpu: 200m
+        memory: 800Mi
+      requests:
+        cpu: 50m
+        memory: 200Mi
 
   minio:
-    enabled: false
-
+    enabled: true
 
   backend:
     replicas: 0
@@ -45,7 +53,6 @@ loki:
     replicas: 0
   write:
     replicas: 0
-
 
   ingester:
     replicas: 0

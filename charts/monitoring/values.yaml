@@ -17,11 +17,32 @@ victoria-metrics-k8s-stack:
       vmstorage:
         replicaCount: 2
         storageDataPath: "/vm-data"
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 50m
+            memory: 200Mi
       vmselect:
         replicaCount: 2
         cacheMountPath: "/select-cache"
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
       vminsert:
         replicaCount: 2
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
 
   alertmanager:
     enabled: true
