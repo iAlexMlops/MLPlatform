@@ -7,7 +7,7 @@ loki:
       configs:
         - from: 2024-04-01
           store: tsdb
-          object_store: s3
+          object_store: filesystem
           schema: v13
           index:
             prefix: loki_index_
@@ -18,7 +18,13 @@ loki:
       enabled: true
     querier:
       max_concurrent: 2
+    storage:
+      type: filesystem
+    auth_enabled: false
 
+  memberlist:
+    service:
+      publishNotReadyAddresses: true
 
   deploymentMode: SingleBinary
   singleBinary:
@@ -45,7 +51,7 @@ loki:
         memory: 200Mi
 
   minio:
-    enabled: true
+    enabled: false
 
   backend:
     replicas: 0

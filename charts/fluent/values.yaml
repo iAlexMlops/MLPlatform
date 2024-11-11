@@ -26,18 +26,26 @@ fluent-bit:
 
     filters: |
       [FILTER]
-          Name             kubernetes
-          Match            kube.*
-          Kube_URL         https://kubernetes.default.svc:443
-          Kube_CA_File     /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-          Kube_Token_File  /var/run/secrets/kubernetes.io/serviceaccount/token
-          Kube_Tag_Prefix  kube.var.log.containers.
-          Merge_Log        On
-          Merge_Log_Key    log_processed
+          Name kubernetes
+          Match kube.*
+          Merge_Log On
+          Keep_Log Off
+          K8S-Logging.Parser On
+          K8S-Logging.Exclude On
+          Labels    On
+          Annotations    false
 
     outputs: |
+      [OUTPUT]
+          Name   stdout
+          Match  kube.*
+      
       [OUTPUT]
           name   loki
           match  kube.*
           host   loki-gateway.loki
           port   80
+      
+
+    customParsers: |
+      
