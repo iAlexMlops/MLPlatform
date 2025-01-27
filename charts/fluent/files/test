@@ -1,0 +1,1 @@
+[[1731348897.578956726, {}], {"time"=>"2024-11-11T21:14:57.578956726+03:00", "stream"=>"stderr", "_p"=>"F", "log"=>"I1111 18:14:57.578854 1 client.go:582] "write to remote" connectionID=324 lastData=32 dataSize=32"}]

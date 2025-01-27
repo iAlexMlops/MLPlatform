@@ -1,0 +1,240 @@
+promtail:
+  configmap:
+    enabled: true
+  config:
+    enabled: true
+    snippets:
+      scrapeConfigs: | 
+        - job_name: spark-models-logs
+          pipeline_stages:
+            - cri: {}
+            - regex:
+                expression: '^(?P<timestamp>[^ ]+ [^ ]+) (?P<log_level>[A-Z]+) (?P<performer>\w+): (?P<message>.*)$'
+            - labels:
+                timestamp: ""
+                performer: ""
+                log_level: ""
+                message: ""
+            - labeldrop:
+              - filename
+              - pod
+              - service_name
+              - stream
+            - output:
+                source: structured
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_label_spark_role]
+              separator: ;
+              regex: ^(driver|executor)$
+              action: keep
+            - source_labels: [__meta_kubernetes_pod_label_spark_role]
+              separator: ;
+              regex: (.*)
+              target_label: spark_role
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_label_model_name]
+              separator: ;
+              regex: (.*)
+              target_label: model_name
+              action: replace
+            - source_labels: [__meta_kubernetes_namespace]
+              separator: ;
+              regex: (.*)
+              target_label: namespace
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_name]
+              separator: ;
+              regex: (.*)
+              target_label: pod
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_container_name]
+              separator: ;
+              regex: (.*)
+              target_label: container
+              action: replace
+        
+            - action: replace
+              replacement: /var/log/pods/*$1/*.log
+              separator: /
+              source_labels:
+                - __meta_kubernetes_pod_uid
+                - __meta_kubernetes_pod_container_name
+              target_label: __path__
+        
+        - job_name: airflow-logs
+          pipeline_stages:
+            - cri: {}
+            - match:
+                selector: '{container="scheduler"}'
+                stages:
+                  - regex:
+                      expression: '^\[(?P<timestamp>[^\s]+)] {(?P<source>[^\s]+)} (?P<log_level>[A-Z]+) - (?P<message>.*)$'
+                  - labels:
+                      timestamp: ""
+                      source: ""
+                      log_level: ""
+                      message: ""
+                  - labeldrop:
+                    - filename
+                    - pod
+                    - service_name
+                    - stream
+            - match:
+                selector: '{container="webserver"}'
+                stages:
+                  - regex:
+                      expression: '^(?P<client_ip>[^\s]+) - - \[(?P<timestamp>[^\]]+)\] "(?P<http_method>[A-Z]+) (?P<endpoint>[^\s]+) HTTP\/(?P<http_version>[^\s]+)" (?P<status_code>\d+) (?P<size>\d+) "(?P<referer>[^\"]*)" "(?P<user_agent>[^\"]*)"$'
+                  - labels:
+                      client_ip: ""
+                      timestamp: ""
+                      http_method: ""
+                      endpoint: ""
+                      status_code: ""
+                      size: ""
+                      referer: ""
+                      user_agent: ""
+                  - labeldrop:
+                    - filename
+                    - pod
+                    - service_name
+                    - stream
+                  - match:
+                      selector: '{container="webserver"}'
+                      stages:
+                        - regex:
+                            expression: '^\[(?P<timestamp>[^\]]+)\] \[(?P<pid>\d+)\] \[(?P<log_level>[A-Z]+)\] (?P<message>.*)$'
+                        - labels:
+                            timestamp: ""
+                            log_level: ""
+                            pid: ""
+                            message: ""
+            - output:
+                source: structured
+        
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_label_component]
+              separator: ;
+              regex: ^(webserver|scheduler)$
+              target_label: component
+              action: keep
+            - source_labels: [__meta_kubernetes_namespace]
+              separator: ;
+              regex: (.*)
+              target_label: namespace
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_name]
+              separator: ;
+              regex: (.*)
+              target_label: pod
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_container_name]
+              separator: ;
+              regex: (.*)
+              target_label: container
+              action: replace
+        
+            - action: replace
+              replacement: /var/log/pods/*$1/*.log
+              separator: /
+              source_labels:
+                - __meta_kubernetes_pod_uid
+                - __meta_kubernetes_pod_container_name
+              target_label: __path__
+        
+        - job_name: jupyterhub-logs
+          pipeline_stages:
+            - cri: {}
+            - match:
+                selector: '{container="hub"}'
+                stages:
+                  - multiline:
+                      firstline: '^\['
+                      max_wait_time: 3s
+                  - regex:
+                      expression: '^\[(?P<log_level>\w{1}) (?P<timestamp>[\d:\.\s-]*) (?P<source>\w*) (?P<place>\w*:\d*)\] (?P<message>(?s:.*))$'
+                  - template:
+                      source: log_level
+                      template: {{`'{{- if eq .log_level "I" -}} info {{- else if eq .log_level "W" -}} warning {{- else if eq .log_level "E" -}} error {{- else if eq .log_level "C" -}} critical {{- else -}} unknown {{ end -}}'`}}
+                  - labels:
+                      timestamp: ""
+                      log_level: ""
+                      source: ""
+                      place: ""
+                      message: ""
+                  - labeldrop:
+                      - filename
+                      - pod
+                      - service_name
+                      - stream
+            - match:
+                selector: '{container="notebook"}'
+                stages:
+                  - multiline:
+                      firstline: '^\['
+                      max_wait_time: 3s
+                  - regex:
+                      expression: '^\[(?P<log_level>\w{1}) (?P<timestamp>[\d:\.\s-]*) (?P<source>\w*)\] (?P<message>(?s:.*))$'
+                  - template:
+                      source: log_level
+                      template: {{`'{{- if eq .log_level "I" -}} info {{- else if eq .log_level "W" -}} warning {{- else if eq .log_level "E" -}} error {{- else if eq .log_level "C" -}} critical {{- else -}} unknown {{ end -}}'`}}
+                  - labels:
+                      timestamp: ""
+                      log_level: ""
+                      source: ""
+                      message: ""
+                  - labeldrop:
+                      - filename
+                      - pod
+                      - service_name
+                      - stream
+            - output:
+                source: structured
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_annotation_hub_jupyter_org_username]
+              separator: ;
+              regex: (.*)
+              target_label: username
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_label_app]
+              separator: ;
+              regex: jupyterhub
+              target_label: app
+              action: keep
+            - source_labels: [__meta_kubernetes_namespace]
+              separator: ;
+              regex: (.*)
+              target_label: namespace
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_name]
+              separator: ;
+              regex: (.*)
+              target_label: pod
+              action: replace
+            - source_labels: [__meta_kubernetes_pod_container_name]
+              separator: ;
+              regex: (.*)
+              target_label: container
+              action: replace
+        
+            - action: replace
+              replacement: /var/log/pods/*$1/*.log
+              separator: /
+              source_labels:
+                - __meta_kubernetes_pod_uid
+                - __meta_kubernetes_pod_container_name
+              target_label: __path__
+            - action: replace
+              replacement: /var/log/pods/*$1/*.log
+              regex: true/(.*)
+              separator: /
+              source_labels:
+                - __meta_kubernetes_pod_annotationpresent_kubernetes_io_config_hash
+                - __meta_kubernetes_pod_annotation_kubernetes_io_config_hash
+                - __meta_kubernetes_pod_container_name
+              target_label: __path__

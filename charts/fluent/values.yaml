@@ -25,26 +25,18 @@ fluent-bit:
           multiline.parser              docker, cri
 
     filters: |
-      [FILTER]
-          Name kubernetes
-          Match kube.*
-          Merge_Log On
-          Keep_Log Off
-          K8S-Logging.Parser On
-          K8S-Logging.Exclude On
-          Labels    On
-          Annotations    false
+      
 
     outputs: |
       [OUTPUT]
           Name   stdout
           Match  kube.*
       
-      [OUTPUT]
-          name   loki
-          match  kube.*
-          host   loki-gateway.loki
-          port   80
+#      [OUTPUT]
+#          name   loki
+#          match  kube.*
+#          host   loki-gateway.loki
+#          port   80
       
 
     customParsers: |

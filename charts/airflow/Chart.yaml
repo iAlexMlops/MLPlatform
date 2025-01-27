@@ -1,0 +1,9 @@
+apiVersion: v2
+name: airflow-chart
+version: 0.1.0
+description: A custom Apache Airflow chart
+
+dependencies:
+  - name: airflow
+    version: 1.10.0
+    repository: https://airflow.apache.org

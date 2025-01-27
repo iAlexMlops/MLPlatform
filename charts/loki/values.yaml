@@ -31,7 +31,7 @@ loki:
     replicas: 1
     resources:
       limits:
-        cpu: 500m
+        cpu: 1000m
         memory: 800Mi
       requests:
         cpu: 50m

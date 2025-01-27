@@ -1,0 +1,49 @@
+airflow:
+
+  defaultAirflowRepository: 89109249948/airflow
+  defaultAirflowTag: "2.6.2-spark"
+  airflowVersion: "2.6.2"
+
+  extraEnv: |
+    - name: AIRFLOW__WEBSERVER__PAGE_SIZE
+      value: "5"
+    - name: AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE
+      value: 'Europe/Moscow'
+    - name: TZ
+      value: 'Europe/Moscow'
+
+  data:
+    metadataConnection:
+      user: gen_user
+      pass: E4rtge~C}R#w1j
+      protocol: postgresql
+      host: 147.45.109.150
+      port: 5432
+      db: default_db
+      sslmode: disable
+
+  ingress:
+    web:
+      enabled: true
+      path: "/"
+      pathType: "ImplementationSpecific"
+      host: "airflow.alex-localhost.ru"
+#      hosts:
+#        - name: "airflow.alex-localhost.ru"
+
+  executor: "KubernetesExecutor"
+
+  migrateDatabaseJob:
+    useHelmHooks: false
+  createUserJob:
+    useHelmHooks: false
+
+  statsd:
+    enabled: false
+
+
+  redis:
+    enabled: false
+
+  postgresql:
+    enabled: false
